@@ -2,11 +2,15 @@
 'use strict';
 
 function Helpers() {}
+
+// Promise helpers
 Helpers.prototype.not = function (promise) {
 	return promise.then(function (result) {
 		return !result;
 	});
 };
+
+// Page helpers
 Helpers.prototype.safeGet = function (url) {
 	browser.get(url);
 	this.afterGetPage();

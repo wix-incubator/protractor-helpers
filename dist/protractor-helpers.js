@@ -2,11 +2,15 @@
 'use strict';
 
 function Helpers() {}
+
+// Promise helpers
 Helpers.prototype.not = function (promise) {
 	return promise.then(function (result) {
 		return !result;
 	});
 };
+
+// Page helpers
 Helpers.prototype.safeGet = function (url) {
 	browser.get(url);
 	this.afterGetPage();
@@ -59,11 +63,13 @@ module.exports = new Helpers();
 	function createMessage(context, message) {
 		context.message = function() {
 			var msg = message
-				.replace("{{locator}}", context.acutal.locator())
-				.replace("{{actual}}", context.acutal)
-				.replace("{{not}}", (this.isNot ? ' not ' : ' '));
+				.replace("{{actual}}", context.actual)
+				.replace("{{not}}", (context.isNot ? ' not ' : ' '));
+			
+			if (context.actual.locator) {
+				msg = msg.replace("{{locator}}", context.actual.locator());
+			}
 			return msg;
-
 		};
 	}
 	beforeEach(function () {

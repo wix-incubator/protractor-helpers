@@ -30,10 +30,17 @@ module.exports = function(grunt) {
       }
     },
 
+    release: {
+      options: {
+        file: 'bower.json',
+        npm: false
+      }
+    },
+
   });
 
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-watch');
+  // Load grunt tasks automatically
+  require('load-grunt-tasks')(grunt, {config: require('./package.json')});
 
   grunt.registerTask('build', [
     'concat'
