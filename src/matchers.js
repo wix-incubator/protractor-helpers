@@ -1,15 +1,15 @@
-/*global beforeEach */
+/*global browser, beforeEach */
 'use strict';
 
-(function() {
+(function () {
 	function createMessage(context, message) {
-		context.message = function() {
+		context.message = function () {
 			var msg = message
-				.replace("{{actual}}", context.actual)
-				.replace("{{not}}", (context.isNot ? ' not ' : ' '));
+				.replace('{{actual}}', context.actual)
+				.replace('{{not}}', (context.isNot ? ' not ' : ' '));
 			
 			if (context.actual.locator) {
-				msg = msg.replace("{{locator}}", context.actual.locator());
+				msg = msg.replace('{{locator}}', context.actual.locator());
 			}
 			return msg;
 		};

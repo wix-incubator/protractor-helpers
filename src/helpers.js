@@ -1,7 +1,9 @@
-/* global browser */
+/* global browser, $$ */
 'use strict';
 
 function Helpers() {}
+
+var TIMEOUT = 1000;
 
 // Promise helpers
 Helpers.prototype.not = function (promise) {
@@ -39,5 +41,12 @@ Helpers.prototype.displayHover = function (element) {
 		return element.isDisplayed();
 	});
 };
+
+Helpers.prototype.waitForElement = function (element) {
+	browser.wait(function () {
+		return element.isDisplayed();
+	}, TIMEOUT);
+};
+
 
 module.exports = new Helpers();

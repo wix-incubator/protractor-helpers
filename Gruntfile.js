@@ -18,8 +18,7 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: [
-          'src/**/*.js',
-          'test/**/*.js'
+          'src/**/*.js'
         ],
         tasks: [
           'build'
@@ -36,13 +35,29 @@ module.exports = function(grunt) {
         npm: false
       }
     },
-
+    jshint: {
+      options: {
+        force: false,
+        reporter: require('jshint-stylish')
+      },
+      scripts: {
+        options: {
+          jshintrc: '.jshintrc'
+        },
+        files: {
+          src: [
+            'src/**/*.js'
+          ]
+        }
+      }
+    },
   });
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt, {config: require('./package.json')});
 
   grunt.registerTask('build', [
+    'jshint',
     'concat'
   ]);
 

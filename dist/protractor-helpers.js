@@ -1,4 +1,4 @@
-/* global browser */
+/* global browser, $$ */
 'use strict';
 
 function Helpers() {}
@@ -45,7 +45,7 @@ module.exports = new Helpers();
 /*global document, by */
 'use strict';
 
-(function() {
+(function () {
 	by.addLocator('dataHook', function (hook, optParentElement, optRootSelector) {
 		var using = optParentElement || document.querySelector(optRootSelector) || document;
 		return using.querySelector('[data-hook=\'' + hook + '\']');
@@ -56,18 +56,18 @@ module.exports = new Helpers();
 		return using.querySelectorAll('[data-hook=\'' + hook + '\']');
 	});
 })();
-/*global beforeEach */
+/*global browser, beforeEach */
 'use strict';
 
-(function() {
+(function () {
 	function createMessage(context, message) {
-		context.message = function() {
+		context.message = function () {
 			var msg = message
-				.replace("{{actual}}", context.actual)
-				.replace("{{not}}", (context.isNot ? ' not ' : ' '));
+				.replace('{{actual}}', context.actual)
+				.replace('{{not}}', (context.isNot ? ' not ' : ' '));
 			
 			if (context.actual.locator) {
-				msg = msg.replace("{{locator}}", context.actual.locator());
+				msg = msg.replace('{{locator}}', context.actual.locator());
 			}
 			return msg;
 		};
