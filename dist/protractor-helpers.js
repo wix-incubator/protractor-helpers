@@ -3,6 +3,8 @@
 
 function Helpers() {}
 
+var TIMEOUT = 1000;
+
 // Promise helpers
 Helpers.prototype.not = function (promise) {
 	return promise.then(function (result) {
@@ -39,6 +41,13 @@ Helpers.prototype.displayHover = function (element) {
 		return element.isDisplayed();
 	});
 };
+
+Helpers.prototype.waitForElement = function (element) {
+	browser.wait(function () {
+		return element.isDisplayed();
+	}, TIMEOUT);
+};
+
 
 module.exports = new Helpers();
 
