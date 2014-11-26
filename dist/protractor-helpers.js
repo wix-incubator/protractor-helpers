@@ -8,6 +8,8 @@ function Helpers() {
 }
 
 var TIMEOUT = 1000;
+var DEFAULT_WIDTH = 1280;
+var DEFAULT_HEIGHT = 1024;
 
 // Promise helpers
 Helpers.prototype.not = function (promise) {
@@ -19,12 +21,13 @@ Helpers.prototype.not = function (promise) {
 // Page helpers
 Helpers.prototype.safeGet = function (url) {
 	browser.get(url);
-	this.afterGetPage();
+	this.maximizeWindow();
+	this.resetPosition();
 };
 
-Helpers.prototype.maximizeWindow = function () {
-	var width = 1280;
-	var height = 1024;
+Helpers.prototype.maximizeWindow = function (width, height) {
+	width = width || DEFAULT_WIDTH;
+	height = height || DEFAULT_HEIGHT;
 	browser.driver.manage().window().setSize(width, height);
 };
 
@@ -32,11 +35,6 @@ Helpers.prototype.resetPosition = function () {
 	$$('[data-hook=start-point]').each(function (startPoint) {
 		browser.actions().mouseMove(startPoint).perform();
 	});
-};
-
-Helpers.prototype.afterGetPage = function () {
-	this.maximizeWindow();
-	this.resetPosition();
 };
 
 Helpers.prototype.displayHover = function (element) {
