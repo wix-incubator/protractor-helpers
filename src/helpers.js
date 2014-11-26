@@ -1,7 +1,11 @@
 /* global browser, $$ */
 'use strict';
 
-function Helpers() {}
+function Helpers() {
+	browser.getCapabilities().then(function (cap) {
+		this.browserName = cap.caps_.browserName;
+	});
+}
 
 var TIMEOUT = 1000;
 
@@ -48,5 +52,21 @@ Helpers.prototype.waitForElement = function (element) {
 	}, TIMEOUT);
 };
 
+Helpers.prototype.isFirefox = function () {
+	return this.browserName === 'firefox';
+};
+
+Helpers.prototype.createMessage = function (context, message) {
+	context.message = function () {
+		var msg = message
+			.replace('{{actual}}', context.actual)
+			.replace('{{not}}', (context.isNot ? ' not ' : ' '));
+		
+		if (context.actual.locator) {
+			msg = msg.replace('{{locator}}', context.actual.locator());
+		}
+		return msg;
+	};
+};
 
 module.exports = new Helpers();
