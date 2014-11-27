@@ -1,4 +1,4 @@
-/* global browser, $$ */
+/* global browser, $$, by */
 'use strict';
 
 function Helpers() {
@@ -44,10 +44,56 @@ Helpers.prototype.displayHover = function (element) {
 	});
 };
 
-Helpers.prototype.waitForElement = function (element) {
+// Calling isDisplayed when element is not present causes an exception
+Helpers.prototype.waitForElement = function (element, timeout) {
 	browser.wait(function () {
-		return element.isDisplayed();
-	}, TIMEOUT);
+		return element.isPresent().then(function (isPresent) {
+			if (isPresent) {
+				return element.isDisplayed().then(function (isDisplayed) {
+					return isDisplayed;
+				});
+			}
+			else {
+				return false;
+			}
+		});
+	}, timeout || TIMEOUT);
+};
+
+// Calling isDisplayed when element is not present causes an exception
+Helpers.prototype.waitForElementToDisappear = function (element, timeout) {
+	browser.wait(function () {
+		return element.isPresent().then(function (isPresent) {
+			if (isPresent) {
+				return element.isDisplayed().then(function (isDisplayed) {
+					return !isDisplayed;
+				});
+			}
+			else {
+				return true;
+			}
+		});
+	}, timeout || TIMEOUT);
+};
+
+Helpers.prototype.selectOptionByText = function (select, text) {
+	var optionElement = select.element(by.cssContainingText('option', text));
+	this.selectOption(optionElement);
+};
+
+// zero-based index
+Helpers.prototype.selectOptionByIndex = function (select, index) {
+	var optionElement = select.all(by.css('option')).get(index);
+	this.selectOption(optionElement);
+};
+
+Helpers.prototype.selectOption = function (optionElement) {
+	if (this.isFirefox()) {
+		browser.actions().mouseMove(optionElement).mouseDown().mouseUp().perform();
+	}
+	else {
+		optionElement.click();
+	}
 };
 
 Helpers.prototype.isFirefox = function () {
