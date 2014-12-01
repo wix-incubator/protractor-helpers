@@ -1,4 +1,3 @@
-/* global browser, $$, by */
 'use strict';
 
 function Helpers() {

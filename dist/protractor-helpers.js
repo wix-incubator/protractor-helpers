@@ -1,4 +1,3 @@
-/* global browser, $$, by */
 'use strict';
 
 function Helpers() {
@@ -115,7 +114,6 @@ Helpers.prototype.createMessage = function (context, message) {
 
 module.exports = new Helpers();
 
-/*global document, by */
 'use strict';
 
 (function () {
@@ -129,7 +127,6 @@ module.exports = new Helpers();
 		return using.querySelectorAll('[data-hook=\'' + hook + '\']');
 	});
 })();
-/*global browser, beforeEach, Helpers */
 'use strict';
 
 (function () {

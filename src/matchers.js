@@ -1,4 +1,3 @@
-/*global browser, beforeEach, Helpers */
 'use strict';
 
 (function () {
