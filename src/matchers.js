@@ -111,9 +111,9 @@
 		}
 
 		expectedValue = getNumberWithCommas(expectedValue);
-		if (isFraction && matchedValue.indexOf('.') === -1) {
+		if (isFraction && expectedValue.indexOf('.') === -1) {
 			expectedValue += '.00';
 		}
-		return new RegExp(minusSign + '\\s*' + '\\' + currencySymbol + '\\s*' + expectedValue);
+		return new RegExp('^' + minusSign + '\\s*' + '\\' + currencySymbol + '\\s*' + expectedValue + '$');
 	};
 })();

@@ -213,10 +213,26 @@ module.exports = new Helpers();
 		});
 	});
 
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	//	Money Matcher Functions
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Gets a number and adds commas in the right place
+	 * @param number
+	 * @returns {string}
+	 */
 	var getNumberWithCommas = function (number) {
 		return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 	};
 
+	/**
+	 * Creates a regular expression to match money representation with or without spaces in between
+	 * @param matchedValue - the number that is tested
+	 * @param expectedValue - the number to match against
+	 * @param currencySymbol {string}
+	 * @param isFraction {boolean} - flag to add the necessary postfix to expectedValue
+	 * @returns {RegExp}
+	 */
 	var createMoneyRegexp = function (matchedValue, expectedValue, currencySymbol, isFraction) {
 		var minusSign = '';
 		if (matchedValue.indexOf('-') !== -1) {
@@ -224,9 +240,9 @@ module.exports = new Helpers();
 		}
 
 		expectedValue = getNumberWithCommas(expectedValue);
-		if (isFraction && matchedValue.indexOf('.') === -1) {
+		if (isFraction && expectedValue.indexOf('.') === -1) {
 			expectedValue += '.00';
 		}
-		return new RegExp(minusSign + '\\s*' + '\\' + currencySymbol + '\\s*' + expectedValue);
+		return new RegExp('^' + minusSign + '\\s*' + '\\' + currencySymbol + '\\s*' + expectedValue + '$');
 	};
 })();
