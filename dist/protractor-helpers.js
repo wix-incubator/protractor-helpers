@@ -161,6 +161,18 @@ module.exports = new Helpers();
 					return re.test(text);
 				});
 			},
+			toMatchMoney: function (expectedValue, currencySymbol) {
+				var _this = this;
+				var regexExpectedValue = createMoneyRegexp(this.actual, expectedValue, currencySymbol, false);
+				helpers.createMessage(_this, 'Expected ' + this.actual + '{{not}}to match money pattern ' + regexExpectedValue);
+				return regexExpectedValue.test(this.actual);
+			},
+			toMatchMoneyWithFraction: function (expectedValue, currencySymbol) {
+				var _this = this;
+				var regexExpectedValue = createMoneyRegexp(this.actual, expectedValue, currencySymbol, true);
+				helpers.createMessage(_this, 'Expected ' + this.actual + '{{not}}to match money pattern ' + regexExpectedValue);
+				return regexExpectedValue.test(this.actual);
+			},
 			toHaveValue: function (expectedValue) {
 				var _this = this;
 				return this.actual.getAttribute('value').then(function (value) {
@@ -200,4 +212,21 @@ module.exports = new Helpers();
 			}
 		});
 	});
+
+	var getNumberWithCommas = function (number) {
+		return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	};
+
+	var createMoneyRegexp = function (matchedValue, expectedValue, currencySymbol, isFraction) {
+		var minusSign = '';
+		if (matchedValue.indexOf('-') !== -1) {
+			minusSign = '-';
+		}
+
+		expectedValue = getNumberWithCommas(expectedValue);
+		if (isFraction && matchedValue.indexOf('.') === -1) {
+			expectedValue += '.00';
+		}
+		return new RegExp(minusSign + '\\s*' + '\\' + currencySymbol + '\\s*' + expectedValue);
+	};
 })();
