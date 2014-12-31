@@ -17,6 +17,14 @@ Helpers.prototype.not = function (promise) {
 	});
 };
 
+// Translation helpers
+Helpers.prototype.translate = function (key, values) {
+	return browser.executeScript(function (key, values) {
+		var $translate = angular.element(document.body).injector().get('$translate');
+		return $translate(key, values);
+	}, key, values);
+};
+
 // Page helpers
 Helpers.prototype.safeGet = function (url) {
 	browser.get(url);
@@ -48,9 +56,7 @@ Helpers.prototype.waitForElement = function (element, timeout) {
 	browser.wait(function () {
 		return element.isPresent().then(function (isPresent) {
 			if (isPresent) {
-				return element.isDisplayed().then(function (isDisplayed) {
-					return isDisplayed;
-				});
+				return element.isDisplayed();
 			}
 			else {
 				return false;
@@ -61,12 +67,11 @@ Helpers.prototype.waitForElement = function (element, timeout) {
 
 // Calling isDisplayed when element is not present causes an exception
 Helpers.prototype.waitForElementToDisappear = function (element, timeout) {
+	var _this = this;
 	browser.wait(function () {
 		return element.isPresent().then(function (isPresent) {
 			if (isPresent) {
-				return element.isDisplayed().then(function (isDisplayed) {
-					return !isDisplayed;
-				});
+				return _this.not(element.isDisplayed());
 			}
 			else {
 				return true;
@@ -99,6 +104,7 @@ Helpers.prototype.isFirefox = function () {
 	return this.browserName === 'firefox';
 };
 
+// For matchers
 Helpers.prototype.createMessage = function (context, message) {
 	context.message = function () {
 		var msg = message
@@ -208,6 +214,14 @@ module.exports = new Helpers();
 						helpers.createMessage(_this, 'Expected ' + html1.substring(0, 40) + '{{not}} to have focus, but focus is on ' + html2.substring(0, 40) + '...');
 						return html1 === html2;
 					});
+				});
+			},
+			toMatchTranslated: function (key, values) {
+				var _this = this;
+				return helpers.translate(key, values).then(function (translatedStr) {
+					helpers.createMessage(_this, 'Expected {{actual}}{{not}} to match ' + translatedStr + ' (translated from ' + key + ', values: ' + JSON.stringify(values) + ')');
+					var re = new RegExp(translatedStr);
+					return re.test(_this.actual);
 				});
 			}
 		});

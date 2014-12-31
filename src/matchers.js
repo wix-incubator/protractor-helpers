@@ -80,6 +80,14 @@
 						return html1 === html2;
 					});
 				});
+			},
+			toMatchTranslated: function (key, values) {
+				var _this = this;
+				return helpers.translate(key, values).then(function (translatedStr) {
+					helpers.createMessage(_this, 'Expected {{actual}}{{not}} to match ' + translatedStr + ' (translated from ' + key + ', values: ' + JSON.stringify(values) + ')');
+					var re = new RegExp(translatedStr);
+					return re.test(_this.actual);
+				});
 			}
 		});
 	});
