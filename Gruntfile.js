@@ -50,7 +50,7 @@ module.exports = function(grunt) {
           ]
         }
       }
-    },
+    }
   });
 
   // Load grunt tasks automatically
