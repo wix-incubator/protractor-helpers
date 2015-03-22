@@ -1,6 +1,6 @@
 {
   "name": "protractor-helpers",
-  "version": "0.0.0",
+  "version": "0.1.2",
   "description": "Additional matchers / locators and helpers for system tests using ptor and Jasmine",
   "main": "src/helpers.js",
   "author": "Adam Klein (https://github.com/adamkleingit)",
