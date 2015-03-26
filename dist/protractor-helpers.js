@@ -19,7 +19,7 @@ ElementArrayFinder.prototype.getByText = function (compareText) {
 function Helpers() {
 	browser.getCapabilities().then(function (cap) {
 		this.browserName = cap.caps_.browserName;
-	});
+	}.bind(this));
 }
 
 var TIMEOUT = 1000;
