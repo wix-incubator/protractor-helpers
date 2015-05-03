@@ -30,5 +30,8 @@
   },
   "bugs": {
     "url": "https://github.com/wix/protractor-helpers/issues"
+  },
+  "publishConfig": {
+    "registry": "http://repo.dev.wix/artifactory/api/npm/npm-local/"
   }
 }
