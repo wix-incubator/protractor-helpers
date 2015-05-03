@@ -1,16 +1,8 @@
 {
   "name": "protractor-helpers",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Additional matchers / locators and helpers for system tests using ptor and Jasmine",
-  "main": "src/helpers.js",
-  "author": "Adam Klein (https://github.com/adamkleingit)",
-  "contributors": [
-    "Adam Klein (https://github.com/adamkleingit)"
-  ],
-  "license": "MIT",
-  "authors": [
-    "Adam Klein <adam@500tech.com>"
-  ],
+  "main": "dist/protractor-helpers.js",
   "homepage": "https://github.com/wix/protractor-helpers",
   "keywords": [
     "protractor",
@@ -21,10 +13,10 @@
     "e2e"
   ],
   "dependencies": {
-    "load-grunt-tasks": "~0.4.0",
-    "jshint-stylish": "~0.1.3"
- },
+  },
   "devDependencies": {
+    "load-grunt-tasks": "~0.4.0",
+    "jshint-stylish": "~0.1.3",
     "bower": "~1.3.1",
     "grunt-cli": "~0.1.13",
     "grunt": "^0.4.5",

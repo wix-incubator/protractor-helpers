@@ -28,13 +28,6 @@ module.exports = function(grunt) {
         }
       }
     },
-
-    release: {
-      options: {
-        file: 'bower.json',
-        npm: false
-      }
-    },
     jshint: {
       options: {
         force: false,
@@ -60,5 +53,5 @@ module.exports = function(grunt) {
     'jshint',
     'concat'
   ]);
-
+	grunt.registerTask('default', ['build']);
 };
