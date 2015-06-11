@@ -53,11 +53,8 @@
 			},
 			toHaveClass: function (className) {
 				var _this = this;
-				return this.actual.getAttribute('class').then(function (classes) {
-					helpers.createMessage(_this, 'Expected ' + classes + '{{not}}to have class ' + className);
-
-					return classes.split(' ').indexOf(className) !== -1;
-				});
+				helpers.createMessage(_this, 'Expected {{locator}}{{not}}to have class ' + className);
+				return helpers.hasClass(this.actual, className);
 			},
 			toBeDisabled: function () {
 				helpers.createMessage(this, 'Expected {{locator}}{{not}} to be Disabled');
@@ -80,6 +77,14 @@
 						return html1 === html2;
 					});
 				});
+			},
+			toBeValid: function () {
+				helpers.createMessage(this, 'Expected {{locator}}{{not}} to have valid input value');
+				return helpers.isFieldValid(this.actual);
+			},
+			toBeInvalid: function () {
+				helpers.createMessage(this, 'Expected {{locator}}{{not}} to have invalid input value');
+				return helpers.isFieldInvalid(this.actual);
 			},
 			toMatchTranslated: function (key, values) {
 				var _this = this;

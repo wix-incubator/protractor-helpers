@@ -25,11 +25,12 @@
 		"angular": false,
 		"require": false,
 		"module": false,
-    "browser": false,
-    "beforeEach": false,
-    "Helpers": false,
-    "document": false,
-    "by": false,
-    "$$": false
+		"console": false,
+    	"browser": false,
+    	"beforeEach": false,
+    	"Helpers": false,
+    	"document": false,
+    	"by": false,
+    	"$$": false
 	}
 }
