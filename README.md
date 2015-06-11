@@ -86,6 +86,41 @@ if (helpers.isFireFox()) {
 helpers.createMessage(this, 'Expected {{locator}}{{not}}to have image') + '.');
 ```
 
+* isIE - Indicates if is on Internet Explorer browser.
+```js
+if (helpers.isIE()) {
+  // Do FF stuff here . . .
+}
+```
+
+* clearAndSetValue - Allow setting a new value to an input field (rather than appending text)
+```js
+helpers.clearAndSetValue(inputField, 'text to populate');
+```
+
+* getFilteredConsoleErrors - returns console error messages resulted by the test run
+* ignores livereload error (since it is not loaded in CI mode), messages with warn and below severity, and a known FireFox bug (https://bugzilla.mozilla.org/show_bug.cgi?id=1127577)
+* can be used in order to validate no console errors
+```js
+expect(helpers.getFilteredConsoleErrors().length).toBe(0);
+```
+
+* isFieldValid/isFieldInvalid - checks whether an input field is managed by Angular validations and it is valid/invalid
+* valid = has the class ng-valid, invalid = has the class ng-invalid
+```js
+helpers.isFieldValid(inputField);
+```
+
+* hasClass - checks whether an element have a class
+```js
+helpers.hasClass(element, 'class-name');
+```
+
+* switchToFullscreen - maximize the browser window
+```js
+helpers.switchToFullscreen();
+```
+
 ### Locators
 Adds an additional of two locators - by.dataHook and by.dataHookAll.
 Search for element/s with the data-hook attribute. For example:
