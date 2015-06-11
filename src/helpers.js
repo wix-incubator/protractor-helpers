@@ -118,4 +118,37 @@ Helpers.prototype.createMessage = function (context, message) {
 	};
 };
 
+Helpers.prototype.isIE = function () {
+	return Helpers.browserName === 'internet explorer';
+};
+
+Helpers.prototype.clearAndSetValue = function (input, value) {
+	input.clear().then(function () {
+		input.sendKeys(value);
+	});
+};
+
+Helpers.prototype.hasClass = function (element, clss) {
+	return element.getAttribute('class').then(function (classes) {
+		return classes.split(' ').indexOf(clss) !== -1;
+	});
+};
+
+Helpers.prototype.getFilteredConsoleErrors = function () {
+	return this.runIfNotIE(function () {
+		browser.manage().logs().get('browser').then(function (browserLog) {
+			//in CI livereload is not loaded, nsITaskbarTabPreview.invalidate is a mozilla bug
+			var filteredLog = browserLog.filter(function (element) {
+				return element.level.value > 900 &&
+					element.message.indexOf('livereload.js') === -1 &&
+					element.message.indexOf('0x80004005 (NS_ERROR_FAILURE) [nsITaskbarTabPreview.invalidate]') === -1;
+			});
+			if (filteredLog.length > 0) {
+				console.log('Browser log: ' + require('util').inspect(filteredLog));
+			}
+			return filteredLog;
+		});
+	});
+};
+
 module.exports = new Helpers();
