@@ -132,6 +132,10 @@ Helpers.prototype.isFieldInvalid = function (field) {
 	return this.hasClass(field, 'ng-invalid');
 };
 
+Helpers.prototype.isFieldValid = function (field) {
+	return this.hasClass(field, 'ng-valid');
+};
+
 Helpers.prototype.isFieldRequiredInvalid = function (field) {
 	return this.hasClass(field, 'ng-invalid-required');
 };
@@ -146,7 +150,7 @@ Helpers.prototype.switchToFullscreen = function () {
 	browser.driver.manage().window().maximize();
 };
 
-Helpers.prototype.getConsoleErrorsCount = function () {
+Helpers.prototype.getFilteredConsoleErrors = function () {
 	return this.runIfNotIE(function () {
 		browser.manage().logs().get('browser').then(function (browserLog) {
 			//in CI livereload is not loaded, nsITaskbarTabPreview.invalidate is a mozilla bug
@@ -158,7 +162,7 @@ Helpers.prototype.getConsoleErrorsCount = function () {
 			if (filteredLog.length > 0) {
 				console.log('Browser log: ' + require('util').inspect(filteredLog));
 			}
-			return filteredLog.length;
+			return filteredLog;
 		});
 	});
 };

@@ -79,8 +79,12 @@
 				});
 			},
 			toBeValid: function () {
-				helpers.createMessage(this, 'Expected {{locator}}{{not}} to have valid input');
-				return !helpers.isFieldInvalid(this.actual);
+				helpers.createMessage(this, 'Expected {{locator}}{{not}} to have valid input value');
+				return helpers.isFieldValid(this.actual);
+			},
+			toBeInvalid: function () {
+				helpers.createMessage(this, 'Expected {{locator}}{{not}} to have invalid input value');
+				return helpers.isFieldInvalid(this.actual);
 			},
 			toMatchTranslated: function (key, values) {
 				var _this = this;
