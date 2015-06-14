@@ -135,7 +135,7 @@ Helpers.prototype.createMessage = function (context, message) {
 };
 
 Helpers.prototype.isIE = function () {
-	return Helpers.browserName === 'internet explorer';
+	return this.browserName === 'internet explorer';
 };
 
 Helpers.prototype.clearAndSetValue = function (input, value) {
@@ -150,9 +150,11 @@ Helpers.prototype.hasClass = function (element, clss) {
 	});
 };
 
+//return all the console errors found in the browser (except IE),
+//returns a promise which is resolved with an array of the console errors (returns undefined for IE instead of the promise)
 Helpers.prototype.getFilteredConsoleErrors = function () {
-	return this.runIfNotIE(function () {
-		browser.manage().logs().get('browser').then(function (browserLog) {
+	if (!this.isIE()) {
+		return browser.manage().logs().get('browser').then(function (browserLog) {
 			//in CI livereload is not loaded, nsITaskbarTabPreview.invalidate is a mozilla bug
 			var filteredLog = browserLog.filter(function (element) {
 				return element.level.value > 900 &&
@@ -164,7 +166,7 @@ Helpers.prototype.getFilteredConsoleErrors = function () {
 			}
 			return filteredLog;
 		});
-	});
+	}
 };
 
 module.exports = new Helpers();
