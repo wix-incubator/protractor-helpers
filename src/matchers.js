@@ -2,7 +2,7 @@
 
 (function () {
 	var helpers = new Helpers();
-	
+
 	beforeEach(function () {
 		this.addMatchers({
 			toBePresent: function () {
@@ -66,16 +66,6 @@
 				helpers.createMessage(this, 'Expected {{locator}}{{not}} to be checked');
 				return this.actual.getAttribute('checked').then(function (value) {
 					return value;
-				});
-			},
-			toHaveFocus: function () {
-				var _this = this;
-				var activeElement = browser.driver.switchTo().activeElement();
-				return this.actual.getOuterHtml().then(function (html1) {
-					return activeElement.getOuterHtml().then(function (html2) {
-						helpers.createMessage(_this, 'Expected ' + html1.substring(0, 40) + '{{not}} to have focus, but focus is on ' + html2.substring(0, 40) + '...');
-						return html1 === html2;
-					});
 				});
 			},
 			toBeValid: function () {

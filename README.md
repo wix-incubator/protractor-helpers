@@ -122,3 +122,80 @@ Search for element/s with the data-hook attribute. For example:
 ```js
 element(by.dataHook('first')).click() - click on the first data hook
 ```
+
+### Matchers
+The Matchers API extends the matchers available for you:
+* toBePresent - Checks if an element is present (exists in the DOM).
+```js
+expect($('.some-element')).toBePresent();
+```
+
+* toBeDisplayed - Checks if an element is displayed (visible in the DOM).
+```js
+expect($('.some-element')).toBeDisplayed();
+```
+
+* toHaveLengthOf - Checks the length passes to the function against the value its invoked with.
+```js
+expect($('.some-elements').count()).toHaveLengthOf(expectedLength);
+```
+
+* toHaveText - Checks if an element contains a text.
+```js
+expect($('.some-element')).toHaveText(expectedText);
+```
+
+* toMatchRegex - Checks if an elements text fits a regex.
+```js
+expect($('.some-element')).toMatchRegex(expectedPattern);
+```
+
+* toMatchMoney - Checks if an elements text fits rtl money regex.
+```js
+expect($('.some-element').getText()).toMatchMoney(expectedValue, currencySymbol);
+```
+
+* toMatchMoneyWithFraction - Checks if an elements text fits rtl money regex with fraction.
+```js
+expect($('.some-element').getText()).toMatchMoneyWithFraction(expectedValue, currencySymbol);
+```
+
+* toHaveValue - Checks if an element value attribute fits the expectedValue.
+```js
+expect($('.some-element')).toHaveValue(expectedValue);
+```
+
+* toHaveClass - Checks if an element has a specific class name.
+```js
+expect($('.some-element')).toHaveClass(className);
+```
+
+* toBeDisabled - Checks if an element is disabled.
+```js
+expect($('.some-element')).toBeDisabled();
+```
+
+* toBeChecked - Checks if an element checkbox is checked
+```js
+expect($('.some-element')).toBeChecked();
+```
+
+* toBeValid - Checks if a form element is valid (using the ng-valid className).
+```js
+expect($('.some-element')).toBeValid();
+```
+
+* toBeInvalid - Checks if a form element is invalid (using the ng-invalid className).
+```js
+expect($('.some-element')).toBeInvalid();
+```
+
+* toBeInvalidRequired - Checks if a form element is invalid and required (using the ng-invalid-required className).
+```js
+expect($('.some-element')).toBeInvalidRequired();
+```
+
+* toMatchTranslated - Checks if an element contains a translation value.
+```js
+expect($('.some-element')).toMatchTranslated(key, values);
+```
