@@ -32,18 +32,21 @@ Helpers.prototype.safeGet = function (url) {
 	this.resetPosition();
 };
 
+// maximized window helpers
 Helpers.prototype.maximizeWindow = function (width, height) {
 	width = width || DEFAULT_WIDTH;
 	height = height || DEFAULT_HEIGHT;
 	browser.driver.manage().window().setSize(width, height);
 };
 
+// Position helpers
 Helpers.prototype.resetPosition = function () {
 	$$('[data-hook=start-point]').each(function (startPoint) {
 		browser.actions().mouseMove(startPoint).perform();
 	});
 };
 
+// Hover helpers
 Helpers.prototype.displayHover = function (element) {
 	browser.actions().mouseMove(element).perform();
 	browser.wait(function () {
@@ -51,7 +54,7 @@ Helpers.prototype.displayHover = function (element) {
 	});
 };
 
-// Calling isDisplayed when element is not present causes an exception
+// Calling isDisplayed when element is not present causes an exception.
 Helpers.prototype.waitForElement = function (element, timeout) {
 	browser.wait(function () {
 		return element.isPresent().then(function (isPresent) {
@@ -65,7 +68,7 @@ Helpers.prototype.waitForElement = function (element, timeout) {
 	}, timeout || TIMEOUT);
 };
 
-// Calling isDisplayed when element is not present causes an exception
+// Calling isDisplayed when element is not present causes an exception.
 Helpers.prototype.waitForElementToDisappear = function (element, timeout) {
 	var _this = this;
 	browser.wait(function () {
@@ -80,17 +83,19 @@ Helpers.prototype.waitForElementToDisappear = function (element, timeout) {
 	}, timeout || TIMEOUT);
 };
 
+// Select element helper (filter by text)
 Helpers.prototype.selectOptionByText = function (select, text) {
 	var optionElement = select.element(by.cssContainingText('option', text));
 	this.selectOption(optionElement);
 };
 
-// zero-based index
+// Select element helper (filter by index)
 Helpers.prototype.selectOptionByIndex = function (select, index) {
 	var optionElement = select.all(by.css('option')).get(index);
 	this.selectOption(optionElement);
 };
 
+// Select helpers
 Helpers.prototype.selectOption = function (optionElement) {
 	if (this.isFirefox()) {
 		browser.actions().mouseMove(optionElement).mouseDown().mouseUp().perform();
@@ -100,8 +105,14 @@ Helpers.prototype.selectOption = function (optionElement) {
 	}
 };
 
+// Firefox detection helpers
 Helpers.prototype.isFirefox = function () {
 	return this.browserName === 'firefox';
+};
+
+// IE detection helpers
+Helpers.prototype.isIE = function () {
+    return this.browserName === 'internet explorer';
 };
 
 // For matchers
@@ -118,24 +129,22 @@ Helpers.prototype.createMessage = function (context, message) {
 	};
 };
 
-Helpers.prototype.isIE = function () {
-	return this.browserName === 'internet explorer';
-};
-
+// Input clear & set helpers
 Helpers.prototype.clearAndSetValue = function (input, value) {
 	input.clear().then(function () {
 		input.sendKeys(value);
 	});
 };
 
-Helpers.prototype.hasClass = function (element, clss) {
+// ClassName helpers
+Helpers.prototype.hasClass = function (element, className) {
 	return element.getAttribute('class').then(function (classes) {
-		return classes.split(' ').indexOf(clss) !== -1;
+		return classes.split(' ').indexOf(className) !== -1;
 	});
 };
 
-//return all the console errors found in the browser (except IE),
-//returns a promise which is resolved with an array of the console errors (returns undefined for IE instead of the promise)
+// Console error helpers
+// Returns a promise which is resolved with an array of all the console errors
 Helpers.prototype.getFilteredConsoleErrors = function () {
 	if (!this.isIE()) {
 		return browser.manage().logs().get('browser').then(function (browserLog) {

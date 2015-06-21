@@ -1,6 +1,6 @@
 # Protractor Helpers
 
-This library extends Protractor API with a commonly used API. It helps us write more understandable and clean tests with a well define separation between the test logic and the app under test logic. Consist of 4 extension types - elements, helpers, locators and matchers.
+This library extends Protractor API with a commonly used API. It helps write more understandable and clean tests with a well define separation between the test logic and the app under test logic. Consist of 4 extension types - elements, helpers, locators and matchers.
 
 ## Get Started
 * Get protractor-helpers via **[Npm](https://www.npmjs.com/)**: by running `$ npm install --save-dev protractor-helpers` from your console.
@@ -8,7 +8,7 @@ This library extends Protractor API with a commonly used API. It helps us write 
 
 ## Usage
 ### Elements
-The elements API we extend the ElementArrayFinder with:
+The elements API extends the ElementArrayFinder with:
 #### getByText(comparedTest:string) => ElementFinder
 
 example (choosing a date from a calander):
@@ -122,5 +122,3 @@ Search for element/s with the data-hook attribute. For example:
 ```js
 element(by.dataHook('first')).click() - click on the first data hook
 ```
-
-### Matchers
