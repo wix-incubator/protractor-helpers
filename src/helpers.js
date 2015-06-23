@@ -1,14 +1,14 @@
 'use strict';
 
+var TIMEOUT = 1000;
+var DEFAULT_WIDTH = 1280;
+var DEFAULT_HEIGHT = 1024;
+
 function Helpers() {
 	browser.getCapabilities().then(function (cap) {
 		this.browserName = cap.caps_.browserName;
 	}.bind(this));
 }
-
-var TIMEOUT = 1000;
-var DEFAULT_WIDTH = 1280;
-var DEFAULT_HEIGHT = 1024;
 
 // Promise helpers
 Helpers.prototype.not = function (promise) {
@@ -115,7 +115,7 @@ Helpers.prototype.isIE = function () {
     return this.browserName === 'internet explorer';
 };
 
-// For matchers
+// Descriptive error messages.
 Helpers.prototype.createMessage = function (context, message) {
 	context.message = function () {
 		var msg = message
@@ -129,7 +129,7 @@ Helpers.prototype.createMessage = function (context, message) {
 	};
 };
 
-// Input clear & set helpers
+// Input clear & set values helpers
 Helpers.prototype.clearAndSetValue = function (input, value) {
 	input.clear().then(function () {
 		input.sendKeys(value);
