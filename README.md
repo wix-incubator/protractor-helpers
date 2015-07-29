@@ -4,7 +4,15 @@ This library extends Protractor API with a commonly used API. It helps write mor
 
 ## Get Started
 * Get protractor-helpers via **[Npm](https://www.npmjs.com/)**: by running `$ npm install --save-dev protractor-helpers` from your console.
-* Inside the protractor-conf.js onPrepare function add the line `global.helpers = require('protractor-helpers');` to load the helpers.
+* Inside the protractor-conf.js add the following code to load the helpers.
+```js
+var onPrepare = config.onPrepare || function () {};
+config.onPrepare = function () {
+  var promise = onPrepare.apply(this, arguments);
+  global.helpers = require('protractor-helpers');
+  return promise;
+};
+```
 
 ## Usage
 ### Elements
