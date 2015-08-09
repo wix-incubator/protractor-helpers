@@ -1,30 +1,52 @@
 'use strict';
 
 var ElementArrayFinder = $$('').constructor;
+var ElementFinder = $('').constructor;
 
 ElementArrayFinder.prototype.getByText = function (compareText) {
-	var foundElement;
-	return this.each(function (element) {
-		element.getWebElement().getText().then(function (elementText) {
-			if (elementText.trim() === compareText) {
-				foundElement = element;
-			}
-		});
-	}).then(function () {
-		return foundElement;
-	});
+    var foundElement;
+    return this.each(function (element) {
+        element.getWebElement().getText().then(function (elementText) {
+            if (elementText.trim() === compareText) {
+                foundElement = element;
+            }
+        });
+    }).then(function () {
+        return foundElement;
+    });
 };
+
+ElementArrayFinder.prototype.__ = ElementFinder.prototype.__ = function (hook) {
+    return this.all(by.dataHookAll(hook));
+};
+
+ElementFinder.prototype._ = function (hook) {
+    return this.element(by.dataHook(hook));
+};
+
 'use strict';
+
+(function (global) {
+    global._ = function (hook) {
+        return element(by.dataHook(hook));
+    };
+
+    global.__ = function (hook) {
+        return element.all(by.dataHookAll(hook));
+    };
+})(global);
+
+'use strict';
+
+var TIMEOUT = 1000;
+var DEFAULT_WIDTH = 1280;
+var DEFAULT_HEIGHT = 1024;
 
 function Helpers() {
 	browser.getCapabilities().then(function (cap) {
 		this.browserName = cap.caps_.browserName;
 	}.bind(this));
 }
-
-var TIMEOUT = 1000;
-var DEFAULT_WIDTH = 1280;
-var DEFAULT_HEIGHT = 1024;
 
 // Promise helpers
 Helpers.prototype.not = function (promise) {
@@ -48,18 +70,21 @@ Helpers.prototype.safeGet = function (url) {
 	this.resetPosition();
 };
 
+// maximized window helpers
 Helpers.prototype.maximizeWindow = function (width, height) {
 	width = width || DEFAULT_WIDTH;
 	height = height || DEFAULT_HEIGHT;
 	browser.driver.manage().window().setSize(width, height);
 };
 
+// Position helpers
 Helpers.prototype.resetPosition = function () {
 	$$('[data-hook=start-point]').each(function (startPoint) {
 		browser.actions().mouseMove(startPoint).perform();
 	});
 };
 
+// Hover helpers
 Helpers.prototype.displayHover = function (element) {
 	browser.actions().mouseMove(element).perform();
 	browser.wait(function () {
@@ -67,7 +92,7 @@ Helpers.prototype.displayHover = function (element) {
 	});
 };
 
-// Calling isDisplayed when element is not present causes an exception
+// Calling isDisplayed when element is not present causes an exception.
 Helpers.prototype.waitForElement = function (element, timeout) {
 	browser.wait(function () {
 		return element.isPresent().then(function (isPresent) {
@@ -81,7 +106,7 @@ Helpers.prototype.waitForElement = function (element, timeout) {
 	}, timeout || TIMEOUT);
 };
 
-// Calling isDisplayed when element is not present causes an exception
+// Calling isDisplayed when element is not present causes an exception.
 Helpers.prototype.waitForElementToDisappear = function (element, timeout) {
 	var _this = this;
 	browser.wait(function () {
@@ -96,17 +121,19 @@ Helpers.prototype.waitForElementToDisappear = function (element, timeout) {
 	}, timeout || TIMEOUT);
 };
 
+// Select element helper (filter by text)
 Helpers.prototype.selectOptionByText = function (select, text) {
 	var optionElement = select.element(by.cssContainingText('option', text));
 	this.selectOption(optionElement);
 };
 
-// zero-based index
+// Select element helper (filter by index)
 Helpers.prototype.selectOptionByIndex = function (select, index) {
 	var optionElement = select.all(by.css('option')).get(index);
 	this.selectOption(optionElement);
 };
 
+// Select helpers
 Helpers.prototype.selectOption = function (optionElement) {
 	if (this.isFirefox()) {
 		browser.actions().mouseMove(optionElement).mouseDown().mouseUp().perform();
@@ -116,11 +143,17 @@ Helpers.prototype.selectOption = function (optionElement) {
 	}
 };
 
+// Firefox detection helpers
 Helpers.prototype.isFirefox = function () {
 	return this.browserName === 'firefox';
 };
 
-// For matchers
+// IE detection helpers
+Helpers.prototype.isIE = function () {
+    return this.browserName === 'internet explorer';
+};
+
+// Descriptive error messages.
 Helpers.prototype.createMessage = function (context, message) {
 	context.message = function () {
 		var msg = message
@@ -134,24 +167,22 @@ Helpers.prototype.createMessage = function (context, message) {
 	};
 };
 
-Helpers.prototype.isIE = function () {
-	return this.browserName === 'internet explorer';
-};
-
+// Input clear & set values helpers
 Helpers.prototype.clearAndSetValue = function (input, value) {
 	input.clear().then(function () {
 		input.sendKeys(value);
 	});
 };
 
-Helpers.prototype.hasClass = function (element, clss) {
+// ClassName helpers
+Helpers.prototype.hasClass = function (element, className) {
 	return element.getAttribute('class').then(function (classes) {
-		return classes.split(' ').indexOf(clss) !== -1;
+		return classes.split(' ').indexOf(className) !== -1;
 	});
 };
 
-//return all the console errors found in the browser (except IE),
-//returns a promise which is resolved with an array of the console errors (returns undefined for IE instead of the promise)
+// Console error helpers
+// Returns a promise which is resolved with an array of all the console errors
 Helpers.prototype.getFilteredConsoleErrors = function () {
 	if (!this.isIE()) {
 		return browser.manage().logs().get('browser').then(function (browserLog) {
@@ -172,23 +203,26 @@ Helpers.prototype.getFilteredConsoleErrors = function () {
 module.exports = new Helpers();
 
 'use strict';
+var SINGLE_LOCATOR = 'dataHook';
+var MULTI_LOCATOR = 'dataHookAll';
 
+// Data-hook is a unique attribute to find elements in e2e tests.
 (function () {
-	by.addLocator('dataHook', function (hook, optParentElement, optRootSelector) {
-		var using = optParentElement || document.querySelector(optRootSelector) || document;
-		return using.querySelector('[data-hook=\'' + hook + '\']');
-	});
+    by.addLocator(SINGLE_LOCATOR, function (hook, optParentElement, optRootSelector) {
+        var using = optParentElement || document.querySelector(optRootSelector) || document;
+        return using.querySelector('[data-hook=\'' + hook + '\']');
+    });
 
-	by.addLocator('dataHookAll', function (hook, optParentElement, optRootSelector) {
-		var using = optParentElement || document.querySelector(optRootSelector) || document;
-		return using.querySelectorAll('[data-hook=\'' + hook + '\']');
-	});
+    by.addLocator(MULTI_LOCATOR, function (hook, optParentElement, optRootSelector) {
+        var using = optParentElement || document.querySelector(optRootSelector) || document;
+        return using.querySelectorAll('[data-hook=\'' + hook + '\']');
+    });
 })();
 'use strict';
 
 (function () {
 	var helpers = new Helpers();
-	
+
 	beforeEach(function () {
 		this.addMatchers({
 			toBePresent: function () {
@@ -252,16 +286,6 @@ module.exports = new Helpers();
 				helpers.createMessage(this, 'Expected {{locator}}{{not}} to be checked');
 				return this.actual.getAttribute('checked').then(function (value) {
 					return value;
-				});
-			},
-			toHaveFocus: function () {
-				var _this = this;
-				var activeElement = browser.driver.switchTo().activeElement();
-				return this.actual.getOuterHtml().then(function (html1) {
-					return activeElement.getOuterHtml().then(function (html2) {
-						helpers.createMessage(_this, 'Expected ' + html1.substring(0, 40) + '{{not}} to have focus, but focus is on ' + html2.substring(0, 40) + '...');
-						return html1 === html2;
-					});
 				});
 			},
 			toBeValid: function () {
