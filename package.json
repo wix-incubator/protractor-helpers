@@ -1,6 +1,6 @@
 {
   "name": "protractor-helpers",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Additional matchers / locators and helpers for system tests using ptor and Jasmine",
   "main": "dist/protractor-helpers.js",
   "homepage": "https://github.com/wix/protractor-helpers",
