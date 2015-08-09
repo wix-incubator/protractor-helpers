@@ -16,10 +16,10 @@ ElementArrayFinder.prototype.getByText = function (compareText) {
     });
 };
 
-ElementArrayFinder.prototype.__ = ElementFinder.prototype.__ = function (hook) {
+ElementArrayFinder.prototype.$$data = ElementFinder.prototype.$$data = function (hook) {
     return this.all(by.dataHookAll(hook));
 };
 
-ElementFinder.prototype._ = function (hook) {
+ElementFinder.prototype.$data = function (hook) {
     return this.element(by.dataHook(hook));
 };
