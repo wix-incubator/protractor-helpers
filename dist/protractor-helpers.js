@@ -16,22 +16,22 @@ ElementArrayFinder.prototype.getByText = function (compareText) {
     });
 };
 
-ElementArrayFinder.prototype.__ = ElementFinder.prototype.__ = function (hook) {
+ElementArrayFinder.prototype.$$data = ElementFinder.prototype.$$data = function (hook) {
     return this.all(by.dataHookAll(hook));
 };
 
-ElementFinder.prototype._ = function (hook) {
+ElementFinder.prototype.$data = function (hook) {
     return this.element(by.dataHook(hook));
 };
 
 'use strict';
 
 (function (global) {
-    global._ = function (hook) {
+    global.$data = function (hook) {
         return element(by.dataHook(hook));
     };
 
-    global.__ = function (hook) {
+    global.$$data = function (hook) {
         return element.all(by.dataHookAll(hook));
     };
 })(global);
