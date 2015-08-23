@@ -34,7 +34,7 @@
 			},
 			toMatchMoney: function (expectedValue, currencySymbol) {
 				var _this = this;
-				var regexExpectedValue = createMoneyRegexp(this.actual, expectedValue, currencySymbol, false);
+				var regexExpectedValue = createMoneyRegexp(this.actual, expectedValue, currencySymbol);
 				helpers.createMessage(_this, 'Expected ' + this.actual + '{{not}}to match money pattern ' + regexExpectedValue);
 				return regexExpectedValue.test(this.actual);
 			},
@@ -107,20 +107,27 @@
 	 * Creates a regular expression to match money representation with or without spaces in between
 	 * @param matchedValue - the number that is tested
 	 * @param expectedValue - the number to match against
-	 * @param currencySymbol {string}
-	 * @param isFraction {boolean} - flag to add the necessary postfix to expectedValue
+	 * @param currencySymbol[optional] {string} - the symbol to match against.
+	 *                           if not specify - validate that there is no symbol.
+	 * @param isFraction[optional] {boolean} - flag to add the necessary postfix to expectedValue
 	 * @returns {RegExp}
 	 */
 	var createMoneyRegexp = function (matchedValue, expectedValue, currencySymbol, isFraction) {
-		var minusSign = '';
-		if (matchedValue.indexOf('-') !== -1) {
-			minusSign = '-';
-		}
-
+		// get value with fraction
 		expectedValue = getNumberWithCommas(expectedValue);
-		if (isFraction && expectedValue.indexOf('.') === -1) {
+		if (isFraction === true && expectedValue.indexOf('.') === -1) {
 			expectedValue += '.00';
 		}
-		return new RegExp('^' + minusSign + '\\s*' + '\\' + currencySymbol + '\\s*' + expectedValue + '$');
+
+		// add minus and symbol if needed
+		var expression = '^';
+		if (matchedValue.indexOf('-') !== -1) {
+			expression += '-';
+		}
+		expression += '\\s*';
+		if (typeof currencySymbol === 'string') {
+			expression += '\\' + currencySymbol + '\\s*';
+		}
+		return new RegExp(expression + expectedValue + '$');
 	};
 })();
