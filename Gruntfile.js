@@ -42,6 +42,13 @@ module.exports = function(grunt) {
           ]
         }
       }
+    },
+    protractor: {
+      options: {
+        keepAlive: true,
+        configFile: "protractor.conf.js"
+      },
+      run: {}
     }
   });
 
@@ -50,7 +57,8 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'jshint',
-    'concat'
+    'concat',
+    'protractor:run'
   ]);
 	grunt.registerTask('default', ['build']);
 };
