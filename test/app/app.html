@@ -4,13 +4,25 @@
 	<script src="angular/angular.min.js"></script>
 	<script src="scripts/app.js"></script>
 </head>
-<body ng-app="protractorTest" ng-controller="MainCtrl">
+<body ng-app="protractorTest" ng-controller="MainCtrl as mainCtrl">
+	<div data-hook="start-point">
+		Start point is here
+	</div>
 	<section class="element-array-finder">
 		<div data-hook="singular-element-data-hook" ng-class="{'test-class': true}">Single Data Hook</div>
 		<div data-hook="multiple-element-data-hook">Data Hook - 1</div>
 		<div data-hook="multiple-element-data-hook" class="have-text-found">Data Hook - 2</div>
 		<div data-hook="multiple-element-data-hook">Data Hook - 3</div>
 		<div class="have-text-found">Text to Find</div>
+	</section>
+	<section class="protractor-helpers">
+		<div data-hook="translated-key">{{'test-key' | translate: 'variable'}}</div>
+	</section>
+	<section class="hovered-elements" ng-mouseover="mainCtrl.hoverTrigger(true)" ng-mouseleave="mainCtrl.hoverTrigger(false)">
+		<h1 data-hook="hover-trigger-element">Hover over me</h1>
+		<div data-hook="immediate-hover" ng-style="mainCtrl.immediate">Immediate</div>
+		<div data-hook="delayed-hover" ng-style="mainCtrl.delayed">Delayed</div>
+		<div data-hook="delayed-ng-if" ng-if="mainCtrl.delayed.visibility === 'visible'">Delayed If</div>
 	</section>
 </body>
 </html>
