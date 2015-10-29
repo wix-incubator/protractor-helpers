@@ -8,7 +8,7 @@ var config = {};
 
 config.allScriptsTimeout = 120000;
 
-config.baseUrl = './test/app';
+config.baseUrl = 'http://localhost:9876/';
 
 config.specs = [
 	process.cwd() + '/test/spec/e2e/**/*.js',
