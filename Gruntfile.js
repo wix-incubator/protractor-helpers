@@ -49,6 +49,14 @@ module.exports = function(grunt) {
         configFile: "protractor.conf.js"
       },
       run: {}
+    },
+    connect: {
+      server: {
+        options: {
+          port: 9876,
+          base: ['node_modules/', 'test/app']
+        }
+      }
     }
   });
 
@@ -58,6 +66,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
     'jshint',
     'concat',
+    'connect:server',
     'protractor:run'
   ]);
 	grunt.registerTask('default', ['build']);

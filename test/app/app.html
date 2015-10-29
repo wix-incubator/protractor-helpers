@@ -1,6 +1,15 @@
 <html>
-<head></head>
-<body>
-	<h1>lal laal</h1>
+<head>
+	<title>Protractor Test App</title>
+	<script src="angular/angular.min.js"></script>
+	<script src="scripts/app.js"></script>
+</head>
+<body ng-app="protractorTest" ng-controller="MainCtrl">
+	<section class="element-array-finder">
+		<div data-hook="singular-element-data-hook" ng-class="{'test-class': true}">Single Data Hook</div>
+		<div data-hook="multiple-element-data-hook">Data Hook - 1</div>
+		<div data-hook="multiple-element-data-hook">Data Hook - 2</div>
+		<div data-hook="multiple-element-data-hook">Data Hook - 3</div>
+	</section>
 </body>
 </html>

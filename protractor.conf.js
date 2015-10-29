@@ -8,11 +8,16 @@ var config = {};
 
 config.allScriptsTimeout = 120000;
 
-config.baseUrl = '';
+config.baseUrl = './test/app';
 
 config.specs = [
 	process.cwd() + '/test/spec/e2e/**/*.js',
 	process.cwd() + '/test/e2e/spec/**/*.js'
+];
+
+config.exclude = [
+  process.cwd() + '/test/spec/e2e/pageObjects/*.js',
+  process.cwd() + '/test/e2e/spec/pageObjects/*.js'
 ];
 
 config.framework = 'jasmine';
