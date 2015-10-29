@@ -10,7 +10,7 @@ function TestPage() {
 
   this.arrayFindersSection = $('.element-array-finder');
   this.singularDataHook = this.arrayFindersSection.$data('singular-element-data-hook');
-  this.multipleDataHook = this.arrayFindersSection.$data('multiple-element-data-hook');
+  this.multipleDataHook = this.arrayFindersSection.$$data('multiple-element-data-hook');
 }
 
 module.exports = TestPage;

@@ -15,12 +15,13 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      scripts: {
+      helper: {
         files: [
-          'src/**/*.js'
+          'src/**/*.js',
+          'test/**/*.*'
         ],
         tasks: [
-          'build'
+          'compile', 'protractor:run'
         ],
         options: {
           nospawn: true
@@ -63,11 +64,19 @@ module.exports = function(grunt) {
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt, {config: require('./package.json')});
 
-  grunt.registerTask('build', [
+  grunt.registerTask('compile', [
     'jshint',
-    'concat',
+    'concat'
+  ]);
+  grunt.registerTask('build', [
+    'compile',
     'connect:server',
     'protractor:run'
+  ]);
+  grunt.registerTask('serve', [
+    'compile',
+    'connect:server',
+    'watch:helper'
   ]);
 	grunt.registerTask('default', ['build']);
 };
