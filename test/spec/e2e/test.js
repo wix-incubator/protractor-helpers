@@ -23,11 +23,14 @@ describe('product widget suit', function () {
 		});
 
 		it('Should allow setting window size with default values', function () {
+		  browser.driver.manage().window().maximize();
+		  browser.driver.manage().window().getSize().then(function (maxSize) {
 			Helpers.maximizeWindow();
 			browser.driver.manage().window().getSize().then(function (size) {
-				expect(size.height).toBe(1024);
-				expect(size.width).toBe(1280);
+			  expect(size.height).toBe(Math.min(1024, maxSize.height));
+			  expect(size.width).toBe(1280);
 			});
+		  });
 		});
 
 		it('Should allow setting window size with specific values', function () {
@@ -106,8 +109,8 @@ describe('product widget suit', function () {
 		});
 
 		it('Should check the element class name array', function () {
-			expect(page.singularElement).toHaveClass('test-class');
-			expect(page.multipleElement).not.toHaveClass('test-class');
+			expect(page.singularDataHook).toHaveClass('test-class');
+			expect(page.multipleDataHook.get(0)).not.toHaveClass('test-class');
 		});
 
 		it('Should check if the element is disabled', function () {
