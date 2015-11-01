@@ -14,6 +14,14 @@ function TestPage() {
   this.hoverDelayed = this.hoverSection.$data('delayed-hover');
   this.ngIfDelayed = this.hoverSection.$data('delayed-ng-if');
 
+  this.dropDownSection = $data('drop-down-section');
+  this.currentDropDownValue = this.dropDownSection.$data('drop-down-current-value');
+  this.dropDown = this.dropDownSection.$data('drop-down-select-input');
+  this.dropDownThirdOption = this.dropDownSection.$data('third-drop-down-option');
+
+  this.consoleErrorsSection = $data('console-errors');
+  this.consoleErrorsCreator = this.consoleErrorsSection.$data('create-console-error');
+
   this.repeaterElement = element.all(by.repeater('tool in mainCtrl.tools'));
   this.visibleElement = $data('visible-element');
   this.hiddenElement = $data('hidden-element');

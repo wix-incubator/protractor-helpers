@@ -5,6 +5,7 @@
 	<body ng-app="protractorTest" ng-controller="MainCtrl as mainCtrl">
 		<div data-hook="start-point">Start point is here</div>
 		<section class="element-array-finder">
+			<p>Array finder</p>
 			<div data-hook="singular-element-data-hook" ng-class="{'test-class': true}">Single Data Hook</div>
 			<div data-hook="multiple-element-data-hook">Data Hook - 1</div>
 			<div data-hook="multiple-element-data-hook" class="have-text-found">Data Hook - 2</div>
@@ -12,6 +13,7 @@
 			<div class="have-text-found">Text to Find</div>
 		</section>
 		<section class="protractor-helpers">
+			<p>Translated text with mocked $translate</p>
 			<div data-hook="translated-key">{{'test-key' | translate: 'variable'}}</div>
 		</section>
 		<section class="hovered-elements" ng-mouseover="mainCtrl.hoverTrigger(true)"
@@ -21,6 +23,18 @@
 			<div data-hook="immediate-hover" ng-style="mainCtrl.immediate">Immediate</div>
 			<div data-hook="delayed-hover" ng-style="mainCtrl.delayed">Delayed</div>
 			<div data-hook="delayed-ng-if" ng-if="mainCtrl.delayed.visibility === 'visible'">Delayed If</div>
+		</section>
+		<section data-hook="drop-down-section">
+			<p>Drop Down tests</p>
+			<h3>Current value is: <span data-hook="drop-down-current-value">{{mainCtrl.currentDropDownValue}}</span></h3>
+			<select data-hook="drop-down-select-input" ng-model="mainCtrl.currentDropDownValue">
+				<option value="A">First</option>
+				<option value="B">Second</option>
+				<option value="C" data-hook="third-drop-down-option">Third</option>
+			</select>
+		</section>
+		<section data-hook="console-errors">
+			<button data-hook="create-console-error" onclick="a.b.c()">Click me to create Console error</button>
 		</section>
 		<section>
 			<p>Visibility tests</p>

@@ -64,6 +64,31 @@ describe('product widget suit', function () {
       expect(page.ngIfDelayed.isPresent()).toBeFalsy();
       browser.ignoreSynchronization = false;
     });
+
+    it('Should select drop down by text', function () {
+      Helpers.selectOptionByText(page.dropDown, 'Second');
+      expect(page.currentDropDownValue.getText()).toEqual('B');
+    });
+
+    it('Should select drop down by index', function () {
+      Helpers.selectOptionByIndex(page.dropDown, 1);
+      expect(page.currentDropDownValue.getText()).toEqual('A');
+    });
+
+    it('Should select drop down by option', function () {
+      Helpers.selectOption(page.dropDownThirdOption);
+      expect(page.currentDropDownValue.getText()).toEqual('C');
+    });
+
+    it('Should collect console errors', function () {
+      Helpers.getFilteredConsoleErrors().then(function (initialErrors) {
+        expect(initialErrors.length).toBe(0);
+        page.consoleErrorsCreator.click();
+        Helpers.getFilteredConsoleErrors().then(function (secondTimeErrors) {
+          expect(secondTimeErrors.length).toBe(1);
+        });
+      });
+    });
   });
 
   describe('Matchers Tests - ', function () {
