@@ -1,12 +1,13 @@
 var Page = require('./pageObjects/test-app');
 var Helpers = require('../../../dist/protractor-helpers');
 
-describe('product widget suit', function () {
+describe('Product Widget Suit', function () {
 	var page;
 	beforeEach(function () {
 		page = new Page();
 		page.navigate();
 	});
+
 	describe('Element Array Finder Test - ', function () {
 		it('Should support array finders', function () {
 			expect(page.singularDataHook.getText()).toEqual('Single Data Hook');
@@ -24,32 +25,33 @@ describe('product widget suit', function () {
 
 		it('Should allow setting window size with default values', function () {
 			browser.driver.manage().window().maximize();
-			browser.driver.manage().window().getSize().then(function (maxSize) {
+			browser.driver.manage().window().getSize().then(function (maxWindow) {
 				Helpers.maximizeWindow();
-				browser.driver.manage().window().getSize().then(function (size) {
-					expect(size.height).toBe(Math.min(1024, maxSize.height));
-					expect(size.width).toBe(1280);
+				browser.driver.manage().window().getSize().then(function (window) {
+					expect(window.height).toBe(maxWindow.height);
+					expect(window.width).toBe(maxWindow.width);
 				});
 			});
 		});
 
 		it('Should allow setting window size with specific values', function () {
-			Helpers.maximizeWindow(800, 600);
+			var specificWidth = 800;
+			var specificHeight = 600;
+			Helpers.maximizeWindow(specificWidth, specificHeight);
 			browser.driver.manage().window().getSize().then(function (size) {
-				expect(size.height).toBe(600);
-				expect(size.width).toBe(800);
+				expect(size.width).toBe(specificWidth);
+				expect(size.height).toBe(specificHeight);
 			});
-			Helpers.maximizeWindow();
 		});
 
 		it('Should hover elements to make them appear and disappear even with delay', function () {
 			Helpers.resetPosition();
 			browser.ignoreSynchronization = true;
-			expect(page.hoverDelayed.isDisplayed()).toBeFalsy();
-			browser.actions().mouseMove(page.hoverDelayed).perform();
-			expect(page.hoverDelayed.isDisplayed()).toBeFalsy();
+			expect(page.hoverDelayed).not.toBeDisplayed();
+			Helpers.moveToPosition('delayed-hover')
+			expect(page.hoverDelayed).not.toBeDisplayed();
 			Helpers.displayHover(page.hoverDelayed);
-			expect(page.hoverDelayed.isDisplayed()).toBeTruthy();
+			expect(page.hoverDelayed).toBeDisplayed();
 			browser.ignoreSynchronization = false;
 		});
 
@@ -58,26 +60,26 @@ describe('product widget suit', function () {
 			browser.ignoreSynchronization = true;
 			Helpers.displayHover(page.hoverTrigger);
 			Helpers.waitForElement(page.ngIfDelayed, 600);
-			expect(page.ngIfDelayed.isDisplayed()).toBeTruthy();
+			expect(page.ngIfDelayed).toBePresent();
 			Helpers.resetPosition();
 			Helpers.waitForElementToDisappear(page.ngIfDelayed, 600);
-			expect(page.ngIfDelayed.isPresent()).toBeFalsy();
+			expect(page.ngIfDelayed).not.toBePresent();
 			browser.ignoreSynchronization = false;
 		});
 
 		it('Should select drop down by text', function () {
 			Helpers.selectOptionByText(page.dropDown, 'Second');
-			expect(page.currentDropDownValue.getText()).toEqual('B');
+			expect(page.currentDropDownValue).toHaveText('B');
 		});
 
 		it('Should select drop down by index', function () {
 			Helpers.selectOptionByIndex(page.dropDown, 1);
-			expect(page.currentDropDownValue.getText()).toEqual('A');
+			expect(page.currentDropDownValue).toHaveText('A');
 		});
 
 		it('Should select drop down by option', function () {
 			Helpers.selectOption(page.dropDownThirdOption);
-			expect(page.currentDropDownValue.getText()).toEqual('C');
+			expect(page.currentDropDownValue).toHaveText('C');
 		});
 
 		it('Should clear current value and set the new one', function () {
@@ -90,14 +92,15 @@ describe('product widget suit', function () {
 			Helpers.getFilteredConsoleErrors().then(function (initialErrors) {
 				expect(initialErrors.length).toBe(0);
 				page.consoleErrorsCreator.click();
-				Helpers.getFilteredConsoleErrors().then(function (secondTimeErrors) {
-					expect(secondTimeErrors.length).toBe(1);
+				Helpers.getFilteredConsoleErrors().then(function (finalErrors) {
+					expect(finalErrors.length).toBe(1);
 				});
 			});
 		});
 
-		it('Should return the href attribute of the link element passed to', function () {
+		it('Should return true if the href of the element and the url match', function () {
 			expect(Helpers.hasLink(page.link, 'https://docs.angularjs.org/api')).toBeTruthy();
+			expect(Helpers.hasLink(page.link, 'https://docs.angularjs.org/')).not.toBeTruthy();
 		});
 	});
 
@@ -118,7 +121,7 @@ describe('product widget suit', function () {
 		});
 
 		it('Should check the element text.', function () {
-			expect(page.elementWithText).toHaveText('I have an important text');
+			expect(page.elementWithText).toHaveText('I am an important text');
 			expect(page.elementWithoutText).toHaveText('');
 		});
 
@@ -138,7 +141,7 @@ describe('product widget suit', function () {
 		});
 
 		it('Should check the input element value and response to changes', function () {
-			expect(page.inputValue).toHaveValue('originalValue');
+			expect(page.inputValue).toHaveValue('original value');
 			page.setInputValue(page.inputValue, 'new value');
 			expect(page.inputValue).toHaveValue('new value');
 		});

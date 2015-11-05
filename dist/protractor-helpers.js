@@ -84,6 +84,11 @@ Helpers.prototype.resetPosition = function () {
 	});
 };
 
+Helpers.prototype.moveToPosition = function (dataHook) {
+	$$(dataHook).each(function (element) {
+		browser.actions().mouseMove(element).perform();
+	});
+};
 // Hover helpers
 Helpers.prototype.displayHover = function (element) {
 	browser.actions().mouseMove(element).perform();
