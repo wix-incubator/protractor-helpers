@@ -143,6 +143,13 @@ Helpers.prototype.hasClass = function (element, className) {
 	});
 };
 
+// ClassName helpers
+Helpers.prototype.hasLink = function (element, url) {
+	return element.getAttribute('href').then(function (href) {
+		return href === url;
+	});
+};
+
 // Console error helpers
 // Returns a promise which is resolved with an array of all the console errors
 Helpers.prototype.getFilteredConsoleErrors = function () {

@@ -95,6 +95,10 @@ describe('product widget suit', function () {
 				});
 			});
 		});
+
+		it('Should return the href attribute of the link element passed to', function () {
+			expect(Helpers.hasLink(page.link, 'https://docs.angularjs.org/api')).toBeTruthy();
+		});
 	});
 
 	describe('Matchers Tests - ', function () {
@@ -166,6 +170,10 @@ describe('product widget suit', function () {
 
 		it('Should get the key from a translated element', function () {
 			expect(page.elementThatUsesTranslateFilter.getText()).toMatchTranslated('test-key', 'variable');
+		});
+
+		it('Should match the element href to the value on test', function () {
+			expect(page.link).toHaveUrl('https://docs.angularjs.org/api');
 		});
 	});
 });

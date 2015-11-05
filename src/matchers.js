@@ -56,6 +56,11 @@
 				helpers.createMessage(_this, 'Expected {{locator}}{{not}}to have class ' + className);
 				return helpers.hasClass(this.actual, className);
 			},
+			toHaveUrl: function (url) {
+				var _this = this;
+				helpers.createMessage(_this, 'Expected {{locator}}{{not}}to have url ' + url);
+				return helpers.hasLink(this.actual, url);
+			},
 			toBeDisabled: function () {
 				helpers.createMessage(this, 'Expected {{locator}}{{not}} to be Disabled');
 				return this.actual.getAttribute('disabled').then(function (value) {

@@ -39,6 +39,7 @@ function TestPage() {
   this.checkbox = $data('checkbox');
   this.formName = $data('form-name');
   this.email = $data('email');
+  this.link = $data('link');
 
   this.setInputValue = function (element, value) {
     Helpers.clearAndSetValue(element, value);

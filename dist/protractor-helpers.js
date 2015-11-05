@@ -181,6 +181,13 @@ Helpers.prototype.hasClass = function (element, className) {
 	});
 };
 
+// ClassName helpers
+Helpers.prototype.hasLink = function (element, url) {
+	return element.getAttribute('href').then(function (href) {
+		return href === url;
+	});
+};
+
 // Console error helpers
 // Returns a promise which is resolved with an array of all the console errors
 Helpers.prototype.getFilteredConsoleErrors = function () {
@@ -275,6 +282,11 @@ var MULTI_LOCATOR = 'dataHookAll';
 				var _this = this;
 				helpers.createMessage(_this, 'Expected {{locator}}{{not}}to have class ' + className);
 				return helpers.hasClass(this.actual, className);
+			},
+			toHaveUrl: function (url) {
+				var _this = this;
+				helpers.createMessage(_this, 'Expected {{locator}}{{not}}to have url ' + url);
+				return helpers.hasLink(this.actual, url);
 			},
 			toBeDisabled: function () {
 				helpers.createMessage(this, 'Expected {{locator}}{{not}} to be Disabled');
