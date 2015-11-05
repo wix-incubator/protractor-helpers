@@ -60,12 +60,14 @@
 		</section>
 		<section>
 			<p>Inputs tests</p>
-			<p>Input with Values:<input data-hook="input-with-value" type="text" value="originalValue"/></p>
+			<p>Input with Values:<input data-hook="input-with-value" type="text" value="originalValue" /></p>
 			<p>Disabled Input:<input data-hook="disabled-input" type="text" ng-disabled="true"/></p>
+
 			<p>Activated Input:><input data-hook="activated-input" type="text"/></p>
 			<p>Checkbox:<input data-hook="checkbox" type="checkbox"/></p>
 			<form name="form" data-hook="form">
-				<p>Email Input:<input data-hook="email" type="email" required/></p>
+				<p>Name Input:<input data-hook="form-name" type="text" ng-model="mainCtrl.name" minlength="4"/></p>
+				<p>Email Input:<input data-hook="email" type="email" ng-model="mainCtrl.email" required/></p>
 			</form>
 		</section>
 
