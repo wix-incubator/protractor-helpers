@@ -4,6 +4,8 @@ app.controller('MainCtrl', function ($scope, $timeout) {
 	this.tools = ['angular', 'node', 'grunt', 'yeoman'];
 	this.immediate = {'visibility': 'hidden'};
 	this.delayed = {'visibility': 'hidden'};
+	this.email = '';
+	this.name = 0;
 
 	this.hoverTrigger = function (isHovered) {
 		var self = this;

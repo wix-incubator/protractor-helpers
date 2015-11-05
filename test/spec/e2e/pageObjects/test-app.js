@@ -37,7 +37,7 @@ function TestPage() {
   this.disabledInput = $data('disabled-input');
   this.activatedInput = $data('activated-input');
   this.checkbox = $data('checkbox');
-  this.form = $data('form');
+  this.formName = $data('form-name');
   this.email = $data('email');
 
   this.setInputValue = function (element, value) {
