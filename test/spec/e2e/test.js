@@ -48,7 +48,7 @@ describe('Product Widget Suit', function () {
 			Helpers.resetPosition();
 			browser.ignoreSynchronization = true;
 			expect(page.hoverDelayed).not.toBeDisplayed();
-			Helpers.moveToPosition('delayed-hover')
+			Helpers.moveToElement('delayed-hover')
 			expect(page.hoverDelayed).not.toBeDisplayed();
 			Helpers.displayHover(page.hoverDelayed);
 			expect(page.hoverDelayed).toBeDisplayed();

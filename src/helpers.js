@@ -46,7 +46,7 @@ Helpers.prototype.resetPosition = function () {
 	});
 };
 
-Helpers.prototype.moveToPosition = function (dataHook) {
+Helpers.prototype.moveToElement = function (dataHook) {
 	$$(dataHook).each(function (element) {
 		browser.actions().mouseMove(element).perform();
 	});
