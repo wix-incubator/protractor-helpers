@@ -1,10 +1,10 @@
 # Protractor Helpers
 
-This library extends Protractor API with a commonly used API. It helps write more understandable and clean tests with a well define separation between the test logic and the app under test logic. Consist of 4 extension types - elements, helpers, locators and matchers.
+This library extends Protractor API with a commonly used API. It helps write more understandable and clean tests with a well- defined separation between the test logic and the app under the test logic. It consists of four extension types: elements, helpers, locators, and matchers.
 
 ## Get Started
-* Get protractor-helpers via **[Npm](https://www.npmjs.com/)**: by running `$ npm install --save-dev protractor-helpers` from your console.
-* Inside the protractor-conf.js add the following code to load the helpers.
+* Get protractor-helpers via **[npm](https://www.npmjs.com/)** by running `$ npm install --save-dev protractor-helpers` from your console.
+* Inside *protractor-conf.js*, add the following code to load the helpers:
 ```js
 var onPrepare = config.onPrepare || function () {};
 config.onPrepare = function () {
@@ -16,111 +16,111 @@ config.onPrepare = function () {
 
 ## Usage
 ### Elements
-The elements API extends the ElementArrayFinder with:
+The Elements API extends `ElementArrayFinder` with:
 #### getByText(comparedTest:string) => ElementFinder
 
-example (choosing a date from a calander):
+example (choosing a date from a calendar):
 ```js
-$$('.calander').getByText('27').click();
+$$('.calendar').getByText('27').click();
 ```
 
 ### Helpers
-global.helpers = require('protractor-helpers') returns helpers functions that can be used by the global helpers object.
+`global.helpers = require('protractor-helpers')` returns helpers functions that can be used by the global helpers object.
 
-* not - Return the negative value of a promise. 
+* `not` - Returns the negative value of a Promise. 
 ```js
 helpers.not($('.some-element').isDisplayed());
 ```
 
-* translate - Returns the translated key with translation values.
+* `translate` - Returns the translated key with translation values.
 ```js
 expect($('.some-element').getText()).toEqual(helpers.translate('SOME_TRANSLATION_KEY'));
 ```
 
-* safeGet - Navigate to a url, maximizing the window and resettings the mouse position.
+* `safeGet` - Navigates to a URL, maximizing the window and resetting the mouse position.
 ```js
 helpers.safeGet('./SomeUrl');
 ```
 
-* maximizeWindow - Maximize the window to a given size or a fedault one.
+* `maximizeWindow` - Maximizes the window to a given size or a default size.
 ```js
 helpers.maximizeWindow(500, 500);
 ```
 
-* resetPosition - Resets the mouse position.
+* `resetPosition` - Resets the mouse position.
 ```js
 helpers.resetPosition();
 ```
 
-* displayHover - Displays an elements that shows only on hoven state.
+* `displayHover` - Displays an element that appears only on hover state.
 ```js
 helpers.displayHover($('.some-element'));
 ```
 
-* waitForElement - Wait for an element to be showen.
+* `waitForElement` - Waits for an element to be shown.
 ```js
 helpers.waitForElement($('.some-element'), timeout);
 ```
 
-* waitForElementToDisappear - Wait for an element not to be showen.
+* `waitForElementToDisappear` - Waits for an element not to be shown.
 ```js
 helpers.waitForElementToDisappear($('.some-element'), timeout);
 ```
 
-* selectOptionByText - Select an element from a selection box.
+* `selectOptionByText` - Selects an element from a selection box.
 ```js
 helpers.selectOptionByText($('select'), 'options-to-select');
 ```
 
-* selectOptionByIndex - Select an element from a selection box.
+* `selectOptionByIndex` - Selects an element from a selection box.
 ```js
 helpers.selectOptionByIndex($('select'), 0);
 ```
 
-* selectOption - Select a given option.
+* `selectOption` - Selects a given option.
 ```js
 helpers.selectOption($$('select option').first());
 ```
 
-* isFirefox - Indicates if is on fire fox browser.
+* `isFirefox` - Indicates if Firefox is the browser.
 ```js
 if (helpers.isFireFox()) {
   // Do FF stuff here . . .
 }
 ```
 
-* createMessage - Creates a matchers message with {{locator}}, {{not}} and {{actual}} as place holders.
+* `createMessage` - Creates a matchers message with `{{locator}}`, `{{not}}`, and `{{actual}}` as placeholders.
 ```js
 helpers.createMessage(this, 'Expected {{locator}}{{not}}to have image') + '.');
 ```
 
-* isIE - Indicates if is on Internet Explorer browser.
+* `isIE` - Indicates if Internet Explorer is the browser.
 ```js
 if (helpers.isIE()) {
-  // Do FF stuff here . . .
+  // Do IE stuff here . . .
 }
 ```
 
-* clearAndSetValue - Allow setting a new value to an input field (rather than appending text)
+* `clearAndSetValue` - Allows setting a new value to an input field (rather than appending text).
 ```js
 helpers.clearAndSetValue(inputField, 'text to populate');
 ```
 
-* getFilteredConsoleErrors - returns console error messages resulted by the test run
-* ignores livereload error (since it is not loaded in CI mode), messages with warn and below severity, and a known FireFox bug (https://bugzilla.mozilla.org/show_bug.cgi?id=1127577)
-* can be used in order to validate no console errors
+* `getFilteredConsoleErrors` - Returns console error messages resulting from the test run.
+* ignores livereload error (since it is not loaded in CI mode), messages with warn and below severity, and a known Firefox bug (https://bugzilla.mozilla.org/show_bug.cgi?id=1127577)
+* Can be used in order to validate no console errors
 ```js
 expect(helpers.getFilteredConsoleErrors().length).toBe(0);
 ```
 
-* hasClass - checks whether an element have a class
+* `hasClass` - Checks whether an element has a class.
 ```js
 helpers.hasClass(element, 'class-name');
 ```
 
 ### Locators
-Adds an additional of two locators - by.dataHook and by.dataHookAll.
-Search for element/s with the data-hook attribute. For example:
+Adds two locators: `by.dataHook` and `by.dataHookAll`.
+Searches for element(s) with the `data-hook attribute`. For example:
 ```html
 <ul>
   <li data-hook="first">First</li>
@@ -132,78 +132,78 @@ element(by.dataHook('first')).click() - click on the first data hook
 ```
 
 ### Matchers
-The Matchers API extends the matchers available for you:
-* toBePresent - Checks if an element is present (exists in the DOM).
+The Matchers API extends the matchers available to you:
+* `toBePresent` - Checks if an element is present (exists in the DOM).
 ```js
 expect($('.some-element')).toBePresent();
 ```
 
-* toBeDisplayed - Checks if an element is displayed (visible in the DOM).
+* `toBeDisplayed` - Checks if an element is displayed (visible in the DOM).
 ```js
 expect($('.some-element')).toBeDisplayed();
 ```
 
-* toHaveLengthOf - Checks the length passes to the function against the value its invoked with.
+* `toHaveLengthOf` - Checks if the length passes to the function against the value it's invoked with.
 ```js
 expect($('.some-elements').count()).toHaveLengthOf(expectedLength);
 ```
 
-* toHaveText - Checks if an element contains a text.
+* `toHaveText` - Checks if an element contains text.
 ```js
 expect($('.some-element')).toHaveText(expectedText);
 ```
 
-* toMatchRegex - Checks if an elements text fits a regex.
+* `toMatchRegex` - Checks if an element's text fits a regex.
 ```js
 expect($('.some-element')).toMatchRegex(expectedPattern);
 ```
 
-* toMatchMoney - Checks if an elements text fits rtl money regex.
+* `toMatchMoney` - Checks if an element's text fits rtl money regex.
 ```js
 expect($('.some-element').getText()).toMatchMoney(expectedValue, currencySymbol);
 ```
 
-* toMatchMoneyWithFraction - Checks if an elements text fits rtl money regex with fraction.
+* `toMatchMoneyWithFraction` - Checks if an element's text fits rtl money regex with fraction.
 ```js
 expect($('.some-element').getText()).toMatchMoneyWithFraction(expectedValue, currencySymbol);
 ```
 
-* toHaveValue - Checks if an element value attribute fits the expectedValue.
+* `toHaveValue` - Checks if an element's value attribute fits the `expectedValue`.
 ```js
 expect($('.some-element')).toHaveValue(expectedValue);
 ```
 
-* toHaveClass - Checks if an element has a specific class name.
+* `toHaveClass` - Checks if an element has a specific class name.
 ```js
 expect($('.some-element')).toHaveClass(className);
 ```
 
-* toBeDisabled - Checks if an element is disabled.
+* `toBeDisabled` - Checks if an element is disabled.
 ```js
 expect($('.some-element')).toBeDisabled();
 ```
 
-* toBeChecked - Checks if an element checkbox is checked
+* `toBeChecked` - Checks if an element checkbox is checked.
 ```js
 expect($('.some-element')).toBeChecked();
 ```
 
-* toBeValid - Checks if a form element is valid (using the ng-valid className).
+* `toBeValid` - Checks if a form element is valid (using the `ng-valid` class name).
 ```js
 expect($('.some-element')).toBeValid();
 ```
 
-* toBeInvalid - Checks if a form element is invalid (using the ng-invalid className).
+* `toBeInvalid` - Checks if a form element is invalid (using the `ng-invalid` class name).
 ```js
 expect($('.some-element')).toBeInvalid();
 ```
 
-* toBeInvalidRequired - Checks if a form element is invalid and required (using the ng-invalid-required className).
+* `toBeInvalidRequired` - Checks if a form element is invalid and required (using the `ng-invalid-required` class name).
 ```js
 expect($('.some-element')).toBeInvalidRequired();
 ```
 
-* toMatchTranslated - Checks if an element contains a translation value.
+* `toMatchTranslated` - Checks if an element contains a translation value.
 ```js
 expect($('.some-element')).toMatchTranslated(key, values);
 ```
