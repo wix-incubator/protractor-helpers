@@ -24,7 +24,7 @@ describe('Product Widget Suit', function () {
 		});
 
 		it('Should allow setting window size with default values', function () {
-			browser.driver.manage().window().maximize();
+			Helpers.maximizeWindow();
 			browser.driver.manage().window().getSize().then(function (maxWindow) {
 				Helpers.maximizeWindow();
 				browser.driver.manage().window().getSize().then(function (window) {

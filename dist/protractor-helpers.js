@@ -174,8 +174,8 @@ Helpers.prototype.createMessage = function (context, message) {
 
 // Input clear & set values helpers
 Helpers.prototype.clearAndSetValue = function (input, value) {
-	input.clear().then(function () {
-		input.sendKeys(value);
+	return input.clear().then(function () {
+		return input.sendKeys(value);
 	});
 };
 
