@@ -4,14 +4,9 @@ This library extends Protractor API with a commonly used API. It helps write mor
 
 ## Get Started
 * Get protractor-helpers via **[npm](https://www.npmjs.com/)** by running `$ npm install --save-dev protractor-helpers` from your console.
-* Inside *protractor-conf.js*, add the following code to load the helpers:
+* In your e2e tests import the protractor helpers module, and start using it.
 ```js
-var onPrepare = config.onPrepare || function () {};
-config.onPrepare = function () {
-  var promise = onPrepare.apply(this, arguments);
-  global.helpers = require('protractor-helpers');
-  return promise;
-};
+var helpers = require('protractor-helpers');
 ```
 
 ## Usage
@@ -25,8 +20,6 @@ $$('.calendar').getByText('27').click();
 ```
 
 ### Helpers
-`global.helpers = require('protractor-helpers')` returns helpers functions that can be used by the global helpers object.
-
 * `not` - Returns the negative value of a Promise. 
 ```js
 helpers.not($('.some-element').isDisplayed());
