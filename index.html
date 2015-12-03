@@ -1,320 +1,437 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Protractor-helpers by wix</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Protractor-helpers</h1>
-      <h2 class="project-tagline">Set of mathcers, locators, and helper functions for protractor</h2>
-      <a href="https://github.com/wix/protractor-helpers" class="btn">View on GitHub</a>
-      <a href="https://github.com/wix/protractor-helpers/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/wix/protractor-helpers/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+<head>
+  <meta charset="UTF-8">
+  <title>Protractor Helpers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="https://static.parastorage.com/services/third-party/fonts/Helvetica/fontFace.css" media="screen">
+</head>
+<body>
+<header>
+  <a href="https://github.com/wix/protractor-helpers/zipball/master" class="btn">DOWNLOAD ZIP</a>
+  <a href="https://github.com/wix/protractor-helpers/tarball/master" class="btn">DOWNLOAD TAR</a>
+  <a href="#get-started" class="btn btn-rt">Get Started</a>
+  <a href="#get-started" class="btn btn-rt">Usage</a>
+</header>
+<section class="page-header">
+  <img src="images/protractor-helper-icon.png" width="90" height="90">
 
-    <section class="main-content">
-      <h1>
-<a id="protractor-helpers" class="anchor" href="#protractor-helpers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Protractor Helpers</h1>
+  <h1 class="project-name">Protractor-helpers</h1>
 
-<p>This library extends Protractor API with a commonly used API. It helps write more understandable and clean tests with a well- defined separation between the test logic and the app under the test logic. It consists of four extension types: elements, helpers, locators, and matchers.</p>
+  <h2 class="project-tagline">Set of mathcers, locators, and helper functions for protractor</h2>
+  <a href="https://github.com/wix/protractor-helpers" class="btn">View on GitHub</a>
+</section>
 
-<h2>
-<a id="get-started" class="anchor" href="#get-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get Started</h2>
+<section class="main-content">
 
-<ul>
-<li>Get protractor-helpers via <strong><a href="https://www.npmjs.com/">npm</a></strong> by running <code>$ npm install --save-dev protractor-helpers</code> from your console.</li>
-<li>Inside <em>protractor-conf.js</em>, add the following code to load the helpers:</li>
-</ul>
+  <p>This library extends Protractor API with a commonly used API. It helps write more understandable and clean tests with a well- defined separation between the test logic and the app under the test logic. It consists of four extension types: elements, helpers, locators, and matchers.</p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> onPrepare <span class="pl-k">=</span> <span class="pl-smi">config</span>.<span class="pl-smi">onPrepare</span> <span class="pl-k">||</span> <span class="pl-k">function</span> () {};
+  <h2>
+    <a id="get-started" class="anchor" href="#get-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get Started
+  </h2>
+
+  <ul>
+    <li>Get protractor-helpers via <strong><a href="https://www.npmjs.com/">npm</a></strong> by running
+      <code>$ npm install --save-dev protractor-helpers</code> from your console.
+    </li>
+    <li>Inside <em>protractor-conf.js</em>, add the following code to load the helpers:</li>
+  </ul>
+
+  <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> onPrepare <span class="pl-k">=</span> <span class="pl-smi">config</span>.<span class="pl-smi">onPrepare</span> <span class="pl-k">||</span> <span class="pl-k">function</span> () {};
 <span class="pl-c1">config</span>.<span class="pl-en">onPrepare</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
   <span class="pl-k">var</span> promise <span class="pl-k">=</span> <span class="pl-smi">onPrepare</span>.<span class="pl-c1">apply</span>(<span class="pl-v">this</span>, arguments);
   <span class="pl-smi">global</span>.<span class="pl-smi">helpers</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>protractor-helpers<span class="pl-pds">'</span></span>);
   <span class="pl-k">return</span> promise;
-};</pre></div>
+};</pre>
+  </div>
 
-<h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+  <h2>
+    <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage
+  </h2>
 
-<h3>
-<a id="elements" class="anchor" href="#elements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Elements</h3>
+  <h3>
+    <a id="elements" class="anchor" href="#elements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Elements
+  </h3>
 
-<p>The Elements API extends <code>ElementArrayFinder</code> with:</p>
+  <p>The Elements API extends <code>ElementArrayFinder</code> with:</p>
 
-<h4>
-<a id="getbytextcomparedteststring--elementfinder" class="anchor" href="#getbytextcomparedteststring--elementfinder" aria-hidden="true"><span class="octicon octicon-link"></span></a>getByText(comparedTest:string) =&gt; ElementFinder</h4>
+  <h4>
+    <a id="getbytextcomparedteststring--elementfinder" class="anchor" href="#getbytextcomparedteststring--elementfinder" aria-hidden="true"><span class="octicon octicon-link"></span></a>getByText(comparedTest:string) =&gt; ElementFinder
+  </h4>
 
-<p>example (choosing a date from a calendar):</p>
+  <p>example (choosing a date from a calendar):</p>
 
-<div class="highlight highlight-source-js"><pre>$$(<span class="pl-s"><span class="pl-pds">'</span>.calendar<span class="pl-pds">'</span></span>).<span class="pl-en">getByText</span>(<span class="pl-s"><span class="pl-pds">'</span>27<span class="pl-pds">'</span></span>).<span class="pl-c1">click</span>();</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre>$$(<span class="pl-s"><span class="pl-pds">'</span>.calendar<span class="pl-pds">'</span></span>).<span class="pl-en">getByText</span>(<span class="pl-s"><span class="pl-pds">'</span>27<span class="pl-pds">'</span></span>).<span class="pl-c1">click</span>();</pre>
+  </div>
 
-<h3>
-<a id="helpers" class="anchor" href="#helpers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Helpers</h3>
+  <h3>
+    <a id="helpers" class="anchor" href="#helpers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Helpers
+  </h3>
 
-<p><code>global.helpers = require('protractor-helpers')</code> returns helpers functions that can be used by the global helpers object.</p>
+  <p>
+    <code>global.helpers = require('protractor-helpers')</code> returns helpers functions that can be used by the global helpers object.
+  </p>
 
-<ul>
-<li>
-<code>not</code> - Returns the negative value of a Promise. </li>
-</ul>
+  <ul>
+    <li>
+      <code>not</code> - Returns the negative value of a Promise.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">helpers</span>.<span class="pl-en">not</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>).<span class="pl-en">isDisplayed</span>());</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-smi">helpers</span>.<span class="pl-en">not</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>).<span class="pl-en">isDisplayed</span>());</pre>
+  </div>
 
-<ul>
-<li>
-<code>translate</code> - Returns the translated key with translation values.</li>
-</ul>
+  <ul>
+    <li>
+      <code>translate</code> - Returns the translated key with translation values.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>).<span class="pl-en">getText</span>()).<span class="pl-en">toEqual</span>(<span class="pl-smi">helpers</span>.<span class="pl-en">translate</span>(<span class="pl-s"><span class="pl-pds">'</span>SOME_TRANSLATION_KEY<span class="pl-pds">'</span></span>));</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>).<span class="pl-en">getText</span>()).<span class="pl-en">toEqual</span>(<span class="pl-smi">helpers</span>.<span class="pl-en">translate</span>(<span class="pl-s"><span class="pl-pds">'</span>SOME_TRANSLATION_KEY<span class="pl-pds">'</span></span>));</pre>
+  </div>
 
-<ul>
-<li>
-<code>safeGet</code> - Navigates to a URL, maximizing the window and resetting the mouse position.</li>
-</ul>
+  <ul>
+    <li>
+      <code>safeGet</code> - Navigates to a URL, maximizing the window and resetting the mouse position.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">helpers</span>.<span class="pl-en">safeGet</span>(<span class="pl-s"><span class="pl-pds">'</span>./SomeUrl<span class="pl-pds">'</span></span>);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-smi">helpers</span>.<span class="pl-en">safeGet</span>(<span class="pl-s"><span class="pl-pds">'</span>./SomeUrl<span class="pl-pds">'</span></span>);</pre>
+  </div>
 
-<ul>
-<li>
-<code>maximizeWindow</code> - Maximizes the window to a given size or a default size.</li>
-</ul>
+  <ul>
+    <li>
+      <code>maximizeWindow</code> - Maximizes the window to a given size or a default size.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">helpers</span>.<span class="pl-en">maximizeWindow</span>(<span class="pl-c1">500</span>, <span class="pl-c1">500</span>);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-smi">helpers</span>.<span class="pl-en">maximizeWindow</span>(<span class="pl-c1">500</span>, <span class="pl-c1">500</span>);</pre>
+  </div>
 
-<ul>
-<li>
-<code>resetPosition</code> - Resets the mouse position.</li>
-</ul>
+  <ul>
+    <li>
+      <code>resetPosition</code> - Resets the mouse position.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">helpers</span>.<span class="pl-en">resetPosition</span>();</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-smi">helpers</span>.<span class="pl-en">resetPosition</span>();</pre>
+  </div>
 
-<ul>
-<li>
-<code>displayHover</code> - Displays an element that appears only on hover state.</li>
-</ul>
+  <ul>
+    <li>
+      <code>displayHover</code> - Displays an element that appears only on hover state.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">helpers</span>.<span class="pl-en">displayHover</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>));</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-smi">helpers</span>.<span class="pl-en">displayHover</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>));</pre>
+  </div>
 
-<ul>
-<li>
-<code>waitForElement</code> - Waits for an element to be shown.</li>
-</ul>
+  <ul>
+    <li>
+      <code>waitForElement</code> - Waits for an element to be shown.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">helpers</span>.<span class="pl-en">waitForElement</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>), timeout);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-smi">helpers</span>.<span class="pl-en">waitForElement</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>), timeout);</pre>
+  </div>
 
-<ul>
-<li>
-<code>waitForElementToDisappear</code> - Waits for an element not to be shown.</li>
-</ul>
+  <ul>
+    <li>
+      <code>waitForElementToDisappear</code> - Waits for an element not to be shown.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">helpers</span>.<span class="pl-en">waitForElementToDisappear</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>), timeout);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-smi">helpers</span>.<span class="pl-en">waitForElementToDisappear</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>), timeout);</pre>
+  </div>
 
-<ul>
-<li>
-<code>selectOptionByText</code> - Selects an element from a selection box.</li>
-</ul>
+  <ul>
+    <li>
+      <code>selectOptionByText</code> - Selects an element from a selection box.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">helpers</span>.<span class="pl-en">selectOptionByText</span>($(<span class="pl-s"><span class="pl-pds">'</span>select<span class="pl-pds">'</span></span>), <span class="pl-s"><span class="pl-pds">'</span>options-to-select<span class="pl-pds">'</span></span>);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-smi">helpers</span>.<span class="pl-en">selectOptionByText</span>($(<span class="pl-s"><span class="pl-pds">'</span>select<span class="pl-pds">'</span></span>), <span class="pl-s"><span class="pl-pds">'</span>options-to-select<span class="pl-pds">'</span></span>);</pre>
+  </div>
 
-<ul>
-<li>
-<code>selectOptionByIndex</code> - Selects an element from a selection box.</li>
-</ul>
+  <ul>
+    <li>
+      <code>selectOptionByIndex</code> - Selects an element from a selection box.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">helpers</span>.<span class="pl-en">selectOptionByIndex</span>($(<span class="pl-s"><span class="pl-pds">'</span>select<span class="pl-pds">'</span></span>), <span class="pl-c1">0</span>);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-smi">helpers</span>.<span class="pl-en">selectOptionByIndex</span>($(<span class="pl-s"><span class="pl-pds">'</span>select<span class="pl-pds">'</span></span>), <span class="pl-c1">0</span>);</pre>
+  </div>
 
-<ul>
-<li>
-<code>selectOption</code> - Selects a given option.</li>
-</ul>
+  <ul>
+    <li>
+      <code>selectOption</code> - Selects a given option.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">helpers</span>.<span class="pl-en">selectOption</span>($$(<span class="pl-s"><span class="pl-pds">'</span>select option<span class="pl-pds">'</span></span>).<span class="pl-en">first</span>());</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-smi">helpers</span>.<span class="pl-en">selectOption</span>($$(<span class="pl-s"><span class="pl-pds">'</span>select option<span class="pl-pds">'</span></span>).<span class="pl-en">first</span>());</pre>
+  </div>
 
-<ul>
-<li>
-<code>isFirefox</code> - Indicates if Firefox is the browser.</li>
-</ul>
+  <ul>
+    <li>
+      <code>isFirefox</code> - Indicates if Firefox is the browser.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">if</span> (<span class="pl-smi">helpers</span>.<span class="pl-en">isFireFox</span>()) {
+  <div class="highlight highlight-source-js"><pre><span class="pl-k">if</span> (<span class="pl-smi">helpers</span>.<span class="pl-en">isFireFox</span>()) {
   <span class="pl-c">// Do FF stuff here . . .</span>
-}</pre></div>
+}</pre>
+  </div>
 
-<ul>
-<li>
-<code>createMessage</code> - Creates a matchers message with <code>{{locator}}</code>, <code>{{not}}</code>, and <code>{{actual}}</code> as placeholders.</li>
-</ul>
+  <ul>
+    <li>
+      <code>createMessage</code> - Creates a matchers message with <code>{{locator}}</code>, <code>{{not}}</code>, and
+      <code>{{actual}}</code> as placeholders.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">helpers</span>.<span class="pl-en">createMessage</span>(<span class="pl-v">this</span>, <span class="pl-s"><span class="pl-pds">'</span>Expected {{locator}}{{not}}to have image<span class="pl-pds">'</span></span>) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>.<span class="pl-pds">'</span></span>);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-smi">helpers</span>.<span class="pl-en">createMessage</span>(<span class="pl-v">this</span>, <span class="pl-s"><span class="pl-pds">'</span>Expected {{locator}}{{not}}to have image<span class="pl-pds">'</span></span>) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>.<span class="pl-pds">'</span></span>);</pre>
+  </div>
 
-<ul>
-<li>
-<code>isIE</code> - Indicates if Internet Explorer is the browser.</li>
-</ul>
+  <ul>
+    <li>
+      <code>isIE</code> - Indicates if Internet Explorer is the browser.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">if</span> (<span class="pl-smi">helpers</span>.<span class="pl-en">isIE</span>()) {
+  <div class="highlight highlight-source-js"><pre><span class="pl-k">if</span> (<span class="pl-smi">helpers</span>.<span class="pl-en">isIE</span>()) {
   <span class="pl-c">// Do IE stuff here . . .</span>
-}</pre></div>
+}</pre>
+  </div>
 
-<ul>
-<li>
-<code>clearAndSetValue</code> - Allows setting a new value to an input field (rather than appending text).</li>
-</ul>
+  <ul>
+    <li>
+      <code>clearAndSetValue</code> - Allows setting a new value to an input field (rather than appending text).
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">helpers</span>.<span class="pl-en">clearAndSetValue</span>(inputField, <span class="pl-s"><span class="pl-pds">'</span>text to populate<span class="pl-pds">'</span></span>);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-smi">helpers</span>.<span class="pl-en">clearAndSetValue</span>(inputField, <span class="pl-s"><span class="pl-pds">'</span>text to populate<span class="pl-pds">'</span></span>);</pre>
+  </div>
 
-<ul>
-<li>
-<code>getFilteredConsoleErrors</code> - Returns console error messages resulting from the test run.</li>
-<li>ignores livereload error (since it is not loaded in CI mode), messages with warn and below severity, and a known Firefox bug (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1127577">https://bugzilla.mozilla.org/show_bug.cgi?id=1127577</a>)</li>
-<li>Can be used in order to validate no console errors</li>
-</ul>
+  <ul>
+    <li>
+      <code>getFilteredConsoleErrors</code> - Returns console error messages resulting from the test run.
+    </li>
+    <li>ignores livereload error (since it is not loaded in CI mode), messages with warn and below severity, and a known Firefox bug (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1127577">https://bugzilla.mozilla.org/show_bug.cgi?id=1127577</a>)
+    </li>
+    <li>Can be used in order to validate no console errors</li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>(<span class="pl-smi">helpers</span>.<span class="pl-en">getFilteredConsoleErrors</span>().<span class="pl-c1">length</span>).<span class="pl-en">toBe</span>(<span class="pl-c1">0</span>);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>(<span class="pl-smi">helpers</span>.<span class="pl-en">getFilteredConsoleErrors</span>().<span class="pl-c1">length</span>).<span class="pl-en">toBe</span>(<span class="pl-c1">0</span>);</pre>
+  </div>
 
-<ul>
-<li>
-<code>hasClass</code> - Checks whether an element has a class.</li>
-</ul>
+  <ul>
+    <li>
+      <code>hasClass</code> - Checks whether an element has a class.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">helpers</span>.<span class="pl-en">hasClass</span>(element, <span class="pl-s"><span class="pl-pds">'</span>class-name<span class="pl-pds">'</span></span>);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-smi">helpers</span>.<span class="pl-en">hasClass</span>(element, <span class="pl-s"><span class="pl-pds">'</span>class-name<span class="pl-pds">'</span></span>);</pre>
+  </div>
 
-<h3>
-<a id="locators" class="anchor" href="#locators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Locators</h3>
+  <h3>
+    <a id="locators" class="anchor" href="#locators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Locators
+  </h3>
 
-<p>Adds two locators: <code>by.dataHook</code> and <code>by.dataHookAll</code>.
-Searches for element(s) with the <code>data-hook attribute</code>. For example:</p>
+  <p>Adds two locators: <code>by.dataHook</code> and <code>by.dataHookAll</code>.
+    Searches for element(s) with the <code>data-hook attribute</code>. For example:</p>
 
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">ul</span>&gt;
+  <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">ul</span>&gt;
   &lt;<span class="pl-ent">li</span> <span class="pl-e">data-hook</span>=<span class="pl-s"><span class="pl-pds">"</span>first<span class="pl-pds">"</span></span>&gt;First&lt;/<span class="pl-ent">li</span>&gt;
   &lt;<span class="pl-ent">li</span> <span class="pl-e">data-hook</span>=<span class="pl-s"><span class="pl-pds">"</span>second<span class="pl-pds">"</span></span>&gt;Second&lt;/<span class="pl-ent">li</span>&gt;
-&lt;/<span class="pl-ent">ul</span>&gt;</pre></div>
+&lt;/<span class="pl-ent">ul</span>&gt;</pre>
+  </div>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">element</span>(<span class="pl-smi">by</span>.<span class="pl-en">dataHook</span>(<span class="pl-s"><span class="pl-pds">'</span>first<span class="pl-pds">'</span></span>)).<span class="pl-c1">click</span>() <span class="pl-k">-</span> click on the first data hook</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">element</span>(<span class="pl-smi">by</span>.<span class="pl-en">dataHook</span>(<span class="pl-s"><span class="pl-pds">'</span>first<span class="pl-pds">'</span></span>)).<span class="pl-c1">click</span>() <span class="pl-k">-</span> click on the first data hook</pre>
+  </div>
 
-<h3>
-<a id="matchers" class="anchor" href="#matchers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Matchers</h3>
+  <h3>
+    <a id="matchers" class="anchor" href="#matchers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Matchers
+  </h3>
 
-<p>The Matchers API extends the matchers available to you:</p>
+  <p>The Matchers API extends the matchers available to you:</p>
 
-<ul>
-<li>
-<code>toBePresent</code> - Checks if an element is present (exists in the DOM).</li>
-</ul>
+  <ul>
+    <li>
+      <code>toBePresent</code> - Checks if an element is present (exists in the DOM).
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toBePresent</span>();</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toBePresent</span>();</pre>
+  </div>
 
-<ul>
-<li>
-<code>toBeDisplayed</code> - Checks if an element is displayed (visible in the DOM).</li>
-</ul>
+  <ul>
+    <li>
+      <code>toBeDisplayed</code> - Checks if an element is displayed (visible in the DOM).
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toBeDisplayed</span>();</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toBeDisplayed</span>();</pre>
+  </div>
 
-<ul>
-<li>
-<code>toHaveLengthOf</code> - Checks if the length passes to the function against the value it's invoked with.</li>
-</ul>
+  <ul>
+    <li>
+      <code>toHaveLengthOf</code> - Checks if the length passes to the function against the value it's invoked with.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-elements<span class="pl-pds">'</span></span>).<span class="pl-en">count</span>()).<span class="pl-en">toHaveLengthOf</span>(expectedLength);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-elements<span class="pl-pds">'</span></span>).<span class="pl-en">count</span>()).<span class="pl-en">toHaveLengthOf</span>(expectedLength);</pre>
+  </div>
 
-<ul>
-<li>
-<code>toHaveText</code> - Checks if an element contains text.</li>
-</ul>
+  <ul>
+    <li>
+      <code>toHaveText</code> - Checks if an element contains text.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toHaveText</span>(expectedText);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toHaveText</span>(expectedText);</pre>
+  </div>
 
-<ul>
-<li>
-<code>toMatchRegex</code> - Checks if an element's text fits a regex.</li>
-</ul>
+  <ul>
+    <li>
+      <code>toMatchRegex</code> - Checks if an element's text fits a regex.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toMatchRegex</span>(expectedPattern);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toMatchRegex</span>(expectedPattern);</pre>
+  </div>
 
-<ul>
-<li>
-<code>toMatchMoney</code> - Checks if an element's text fits rtl money regex.</li>
-</ul>
+  <ul>
+    <li>
+      <code>toMatchMoney</code> - Checks if an element's text fits rtl money regex.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>).<span class="pl-en">getText</span>()).<span class="pl-en">toMatchMoney</span>(expectedValue, currencySymbol);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>).<span class="pl-en">getText</span>()).<span class="pl-en">toMatchMoney</span>(expectedValue, currencySymbol);</pre>
+  </div>
 
-<ul>
-<li>
-<code>toMatchMoneyWithFraction</code> - Checks if an element's text fits rtl money regex with fraction.</li>
-</ul>
+  <ul>
+    <li>
+      <code>toMatchMoneyWithFraction</code> - Checks if an element's text fits rtl money regex with fraction.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>).<span class="pl-en">getText</span>()).<span class="pl-en">toMatchMoneyWithFraction</span>(expectedValue, currencySymbol);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>).<span class="pl-en">getText</span>()).<span class="pl-en">toMatchMoneyWithFraction</span>(expectedValue, currencySymbol);</pre>
+  </div>
 
-<ul>
-<li>
-<code>toHaveValue</code> - Checks if an element's value attribute fits the <code>expectedValue</code>.</li>
-</ul>
+  <ul>
+    <li>
+      <code>toHaveValue</code> - Checks if an element's value attribute fits the <code>expectedValue</code>.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toHaveValue</span>(expectedValue);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toHaveValue</span>(expectedValue);</pre>
+  </div>
 
-<ul>
-<li>
-<code>toHaveClass</code> - Checks if an element has a specific class name.</li>
-</ul>
+  <ul>
+    <li>
+      <code>toHaveClass</code> - Checks if an element has a specific class name.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toHaveClass</span>(className);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toHaveClass</span>(className);</pre>
+  </div>
 
-<ul>
-<li>
-<code>toBeDisabled</code> - Checks if an element is disabled.</li>
-</ul>
+  <ul>
+    <li>
+      <code>toBeDisabled</code> - Checks if an element is disabled.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toBeDisabled</span>();</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toBeDisabled</span>();</pre>
+  </div>
 
-<ul>
-<li>
-<code>toBeChecked</code> - Checks if an element checkbox is checked.</li>
-</ul>
+  <ul>
+    <li>
+      <code>toBeChecked</code> - Checks if an element checkbox is checked.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toBeChecked</span>();</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toBeChecked</span>();</pre>
+  </div>
 
-<ul>
-<li>
-<code>toBeValid</code> - Checks if a form element is valid (using the <code>ng-valid</code> class name).</li>
-</ul>
+  <ul>
+    <li>
+      <code>toBeValid</code> - Checks if a form element is valid (using the <code>ng-valid</code> class name).
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toBeValid</span>();</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toBeValid</span>();</pre>
+  </div>
 
-<ul>
-<li>
-<code>toBeInvalid</code> - Checks if a form element is invalid (using the <code>ng-invalid</code> class name).</li>
-</ul>
+  <ul>
+    <li>
+      <code>toBeInvalid</code> - Checks if a form element is invalid (using the <code>ng-invalid</code> class name).
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toBeInvalid</span>();</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toBeInvalid</span>();</pre>
+  </div>
 
-<ul>
-<li>
-<code>toBeInvalidRequired</code> - Checks if a form element is invalid and required (using the <code>ng-invalid-required</code> class name).</li>
-</ul>
+  <ul>
+    <li>
+      <code>toBeInvalidRequired</code> - Checks if a form element is invalid and required (using the
+      <code>ng-invalid-required</code> class name).
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toBeInvalidRequired</span>();</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toBeInvalidRequired</span>();</pre>
+  </div>
 
-<ul>
-<li>
-<code>toMatchTranslated</code> - Checks if an element contains a translation value.</li>
-</ul>
+  <ul>
+    <li>
+      <code>toMatchTranslated</code> - Checks if an element contains a translation value.
+    </li>
+  </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toMatchTranslated</span>(key, values);</pre></div>
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-element<span class="pl-pds">'</span></span>)).<span class="pl-en">toMatchTranslated</span>(key, values);</pre>
+  </div>
 
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/wix/protractor-helpers">Protractor-helpers</a> is maintained by <a href="https://github.com/wix">wix</a>.</span>
+  <footer class="site-footer">
+    <span class="site-footer-owner"><a href="https://github.com/wix/protractor-helpers">Protractor-helpers</a> is maintained by <a href="https://github.com/wix">wix</a>.</span>
+  </footer>
 
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
+</section>
 
-    </section>
 
-  
-  </body>
+</body>
 </html>

@@ -44,6 +44,8 @@ nav,
 section,
 summary {
   display: block;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 /**
