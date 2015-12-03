@@ -38,15 +38,10 @@
     <li>Get protractor-helpers via <strong><a href="https://www.npmjs.com/">npm</a></strong> by running
       <code>$ npm install --save-dev protractor-helpers</code> from your console.
     </li>
-    <li>Inside <em>protractor-conf.js</em>, add the following code to load the helpers:</li>
+    <li>In your e2e tests import the protractor helpers module, and start using it.</li>
   </ul>
 
-  <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> onPrepare <span class="pl-k">=</span> <span class="pl-smi">config</span>.<span class="pl-smi">onPrepare</span> <span class="pl-k">||</span> <span class="pl-k">function</span> () {};
-<span class="pl-c1">config</span>.<span class="pl-en">onPrepare</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
-  <span class="pl-k">var</span> promise <span class="pl-k">=</span> <span class="pl-smi">onPrepare</span>.<span class="pl-c1">apply</span>(<span class="pl-v">this</span>, arguments);
-  <span class="pl-smi">global</span>.<span class="pl-smi">helpers</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>protractor-helpers<span class="pl-pds">'</span></span>);
-  <span class="pl-k">return</span> promise;
-};</pre>
+  <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-smi">helpers</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>protractor-helpers<span class="pl-pds">'</span></span>);</pre>
   </div>
 
   <h2>
