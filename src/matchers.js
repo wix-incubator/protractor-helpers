@@ -17,6 +17,10 @@
 				helpers.createMessage(this, 'Expected request{{not}}to have length of ' + expectedLength + ' but was {{actual}}');
 				return this.actual === expectedLength;
 			},
+			toHaveSizeOf: function (expectedSize) {
+				helpers.createMessage(this, 'Expected request{{not}}to have ' + expectedSize + ' elements but had {{actual.length}}');
+				return this.actual.length === expectedSize;
+			},
 			toHaveText: function (expectedText) {
 				var _this = this;
 				return this.actual.getText().then(function (text) {
