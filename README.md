@@ -1,10 +1,10 @@
 # Protractor Helpers
 
-This library extends Protractor API with a commonly used API. It helps write more understandable and clean tests with a well- defined separation between the test logic and the app under the test logic. It consists of four extension types: elements, helpers, locators, and matchers.
+This library extends Protractor API with a commonly used API. It helps write more understandable and clean tests with a well-defined separation between the test logic and the app under the test logic. It consists of four extension types: elements, helpers, locators, and matchers.
 
 ## Get Started
 * Get protractor-helpers via **[npm](https://www.npmjs.com/)** by running `$ npm install --save-dev protractor-helpers` from your console.
-* In your e2e tests import the protractor helpers module, and start using it.
+* In your e2e tests, import the protractor-helpers module and start using it.
 ```js
 var helpers = require('protractor-helpers');
 ```
@@ -75,9 +75,9 @@ helpers.selectOptionByIndex($('select'), 0);
 helpers.selectOption($$('select option').first());
 ```
 
-* `isFirefox` - Indicates if Firefox is the browser.
+* `isFirefox` - Indicates whether Firefox is the browser.
 ```js
-if (helpers.isFireFox()) {
+if (helpers.isFirefox()) {
   // Do FF stuff here . . .
 }
 ```
@@ -87,7 +87,7 @@ if (helpers.isFireFox()) {
 helpers.createMessage(this, 'Expected {{locator}}{{not}}to have image') + '.');
 ```
 
-* `isIE` - Indicates if Internet Explorer is the browser.
+* `isIE` - Indicates whether Internet Explorer is the browser.
 ```js
 if (helpers.isIE()) {
   // Do IE stuff here . . .
@@ -100,8 +100,8 @@ helpers.clearAndSetValue(inputField, 'text to populate');
 ```
 
 * `getFilteredConsoleErrors` - Returns console error messages resulting from the test run.
-* ignores livereload error (since it is not loaded in CI mode), messages with warn and below severity, and a known Firefox bug (https://bugzilla.mozilla.org/show_bug.cgi?id=1127577)
-* Can be used in order to validate no console errors
+* Ignores `livereload` error (since it is not loaded in CI mode), messages with `warn` and below severity, and a known Firefox bug (https://bugzilla.mozilla.org/show_bug.cgi?id=1127577).
+* Can be used to validate that there are no console errors.
 ```js
 expect(helpers.getFilteredConsoleErrors().length).toBe(0);
 ```
@@ -113,7 +113,7 @@ helpers.hasClass(element, 'class-name');
 
 ### Locators
 Adds two locators: `by.dataHook` and `by.dataHookAll`.
-Searches for element(s) with the `data-hook attribute`. For example:
+Searches for element(s) with the `data-hook` attribute. For example:
 ```html
 <ul>
   <li data-hook="first">First</li>
@@ -125,78 +125,78 @@ element(by.dataHook('first')).click() - click on the first data hook
 ```
 
 ### Matchers
-The Matchers API extends the matchers available to you:
-* `toBePresent` - Checks if an element is present (exists in the DOM).
+The Matchers API extends the available matchers:
+* `toBePresent` - Checks whether an element is present (exists in the DOM).
 ```js
 expect($('.some-element')).toBePresent();
 ```
 
-* `toBeDisplayed` - Checks if an element is displayed (visible in the DOM).
+* `toBeDisplayed` - Checks whether an element is displayed (visible in the DOM).
 ```js
 expect($('.some-element')).toBeDisplayed();
 ```
 
-* `toHaveLengthOf` - Checks if the length passes to the function against the value it's invoked with.
+* `toHaveLengthOf` - Checks whether the length passes to the function against the value it's invoked with.
 ```js
 expect($('.some-elements').count()).toHaveLengthOf(expectedLength);
 ```
 
-* `toHaveText` - Checks if an element contains text.
+* `toHaveText` - Checks whether an element contains text.
 ```js
 expect($('.some-element')).toHaveText(expectedText);
 ```
 
-* `toMatchRegex` - Checks if an element's text fits a regex.
+* `toMatchRegex` - Checks whether an element's text fits a regex.
 ```js
 expect($('.some-element')).toMatchRegex(expectedPattern);
 ```
 
-* `toMatchMoney` - Checks if an element's text fits rtl money regex.
+* `toMatchMoney` - Checks whether an element's text fits rtl money regex.
 ```js
 expect($('.some-element').getText()).toMatchMoney(expectedValue, currencySymbol);
 ```
 
-* `toMatchMoneyWithFraction` - Checks if an element's text fits rtl money regex with fraction.
+* `toMatchMoneyWithFraction` - Checks whether an element's text fits rtl money regex with fraction.
 ```js
 expect($('.some-element').getText()).toMatchMoneyWithFraction(expectedValue, currencySymbol);
 ```
 
-* `toHaveValue` - Checks if an element's value attribute fits the `expectedValue`.
+* `toHaveValue` - Checks whether an element's `value` attribute fits the `expectedValue`.
 ```js
 expect($('.some-element')).toHaveValue(expectedValue);
 ```
 
-* `toHaveClass` - Checks if an element has a specific class name.
+* `toHaveClass` - Checks whether an element has a specific class name.
 ```js
 expect($('.some-element')).toHaveClass(className);
 ```
 
-* `toBeDisabled` - Checks if an element is disabled.
+* `toBeDisabled` - Checks whether an element is disabled.
 ```js
 expect($('.some-element')).toBeDisabled();
 ```
 
-* `toBeChecked` - Checks if an element checkbox is checked.
+* `toBeChecked` - Checks whether an element checkbox is checked.
 ```js
 expect($('.some-element')).toBeChecked();
 ```
 
-* `toBeValid` - Checks if a form element is valid (using the `ng-valid` class name).
+* `toBeValid` - Checks whether a form element is valid (using the `ng-valid` class name).
 ```js
 expect($('.some-element')).toBeValid();
 ```
 
-* `toBeInvalid` - Checks if a form element is invalid (using the `ng-invalid` class name).
+* `toBeInvalid` - Checks whether a form element is invalid (using the `ng-invalid` class name).
 ```js
 expect($('.some-element')).toBeInvalid();
 ```
 
-* `toBeInvalidRequired` - Checks if a form element is invalid and required (using the `ng-invalid-required` class name).
+* `toBeInvalidRequired` - Checks whether a form element is invalid and required (using the `ng-invalid-required` class name).
 ```js
 expect($('.some-element')).toBeInvalidRequired();
 ```
 
-* `toMatchTranslated` - Checks if an element contains a translation value.
+* `toMatchTranslated` - Checks whether an element contains a translation value.
 ```js
 expect($('.some-element')).toMatchTranslated(key, values);
 ```
