@@ -138,7 +138,7 @@ expect($('.some-element')).toBeDisplayed();
 
 * `toHaveCountOf` - Checks whether the length passes to the function against the value it's invoked with.
 ```js
-expect($('.some-elements').count()).toHaveCountOf(expectedLength);
+expect($('.some-elements').count()).toHaveCountOf(expectedCount);
 ```
 
 * `toHaveText` - Checks whether an element contains text.
