@@ -303,6 +303,16 @@
 
   <ul>
     <li>
+      <code>toHaveCountOf</code> - Checks whether the length passes to the function against the value it's invoked with.
+    </li>
+  </ul>
+
+  <div class="highlight highlight-source-js">
+    <pre><span class="pl-en">expect</span>($(<span class="pl-s"><span class="pl-pds">'</span>.some-elements<span class="pl-pds">'</span></span>).<span class="pl-en">count</span>()).<span class="pl-en">toHaveCountOf</span>(expectedCount);</pre>
+  </div>
+
+  <ul>
+    <li>
       <code>toHaveText</code> - Checks whether an element contains text.
     </li>
   </ul>
