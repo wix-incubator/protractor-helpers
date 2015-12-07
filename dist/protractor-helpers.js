@@ -246,12 +246,15 @@ var MULTI_LOCATOR = 'dataHookAll';
 				return this.actual.isDisplayed();
 			},
 			toHaveLengthOf: function (expectedLength) {
+				if (!this.actual.length) {
+					helpers.createMessage(this, 'Please use object with "length" property, this will be deprecated in next major version. please use toHaveCountOf');
+				}
 				helpers.createMessage(this, 'Expected request{{not}}to have length of ' + expectedLength + ' but was {{actual}}');
-				return this.actual === expectedLength;
+				return this.actual.length ? this.actual.length === expectedLength : this.actual === expectedLength;
 			},
-			toHaveSizeOf: function (expectedSize) {
-				helpers.createMessage(this, 'Expected request{{not}}to have ' + expectedSize + ' elements but had {{actual.length}}');
-				return this.actual.length === expectedSize;
+			toHaveCountOf: function (expectedCount) {
+				helpers.createMessage(this, 'Expected request{{not}}to have length of ' + expectedCount + ' but was {{actual}}');
+				return this.actual === expectedCount;
 			},
 			toHaveText: function (expectedText) {
 				var _this = this;

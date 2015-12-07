@@ -116,12 +116,16 @@ describe('Product Widget Suit', function () {
 			expect(page.hiddenElement).not.toBeDisplayed();
 		});
 
-		it('Should return a count by the request made.', function () {
-			expect(page.repeaterElement.count()).toHaveLengthOf(4);
+		it('Should return length of an object.', function () {
+			expect([1, 2, 3, 4]).toHaveLengthOf(4);
 		});
 
-		it('should compare by count', function() {
-			expect(page.repeaterElement).toHaveSizeOf(4);
+		it('Should return length without element "length".', function () {
+			expect(5).toHaveLengthOf(5);
+		});
+
+		it('Should return the count of an object.', function () {
+			expect(page.repeaterElement.count()).toHaveCountOf(4);
 		});
 
 		it('Should check the element text.', function () {
