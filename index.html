@@ -28,7 +28,7 @@
 
 <section class="main-content">
 
-  <p>This library extends Protractor API with a commonly used API. It helps write more understandable and clean tests with a well- defined separation between the test logic and the app under the test logic. It consists of four extension types: elements, helpers, locators, and matchers.</p>
+  <p>TThis library extends Protractor API with a commonly used API. It helps write more understandable and clean tests with a well-defined separation between the test logic and the app under the test logic. It consists of four extension types: elements, helpers, locators, and matchers.</p>
 
   <h2>
     <a id="get-started" class="anchor" href="#get-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get Started
@@ -38,7 +38,7 @@
     <li>Get protractor-helpers via <strong><a href="https://www.npmjs.com/">npm</a></strong> by running
       <code>$ npm install --save-dev protractor-helpers</code> from your console.
     </li>
-    <li>In your e2e tests import the protractor helpers module, and start using it.</li>
+    <li>In your e2e tests, import the protractor-helpers module, and start using it.</li>
   </ul>
 
   <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-smi">helpers</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>protractor-helpers<span class="pl-pds">'</span></span>);</pre>
@@ -184,7 +184,7 @@
 
   <ul>
     <li>
-      <code>isFirefox</code> - Indicates if Firefox is the browser.
+      <code>isFirefox</code> - Indicates whether Firefox is the browser.
     </li>
   </ul>
 
@@ -206,7 +206,7 @@
 
   <ul>
     <li>
-      <code>isIE</code> - Indicates if Internet Explorer is the browser.
+      <code>isIE</code> - Indicates whether Internet Explorer is the browser.
     </li>
   </ul>
 
@@ -229,9 +229,9 @@
     <li>
       <code>getFilteredConsoleErrors</code> - Returns console error messages resulting from the test run.
     </li>
-    <li>ignores livereload error (since it is not loaded in CI mode), messages with warn and below severity, and a known Firefox bug (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1127577">https://bugzilla.mozilla.org/show_bug.cgi?id=1127577</a>)
+    <li>Ignores `livereload` error (since it is not loaded in CI mode), messages with `warn` and below severity, and a known Firefox bug (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1127577">https://bugzilla.mozilla.org/show_bug.cgi?id=1127577</a>).
     </li>
-    <li>Can be used in order to validate no console errors</li>
+    <li>Can be used that there are validate no console errors.</li>
   </ul>
 
   <div class="highlight highlight-source-js">
@@ -253,7 +253,7 @@
   </h3>
 
   <p>Adds two locators: <code>by.dataHook</code> and <code>by.dataHookAll</code>.
-    Searches for element(s) with the <code>data-hook attribute</code>. For example:</p>
+    Searches for element(s) with the <code>data-hook</code> attribute. For example:</p>
 
   <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">ul</span>&gt;
   &lt;<span class="pl-ent">li</span> <span class="pl-e">data-hook</span>=<span class="pl-s"><span class="pl-pds">"</span>first<span class="pl-pds">"</span></span>&gt;First&lt;/<span class="pl-ent">li</span>&gt;
@@ -269,11 +269,11 @@
     <a id="matchers" class="anchor" href="#matchers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Matchers
   </h3>
 
-  <p>The Matchers API extends the matchers available to you:</p>
+  <p>The Matchers API extends the available matchers:</p>
 
   <ul>
     <li>
-      <code>toBePresent</code> - Checks if an element is present (exists in the DOM).
+      <code>toBePresent</code> - Checks whether an element is present (exists in the DOM).
     </li>
   </ul>
 
@@ -283,7 +283,7 @@
 
   <ul>
     <li>
-      <code>toBeDisplayed</code> - Checks if an element is displayed (visible in the DOM).
+      <code>toBeDisplayed</code> - Checks whether an element is displayed (visible in the DOM).
     </li>
   </ul>
 
@@ -293,7 +293,7 @@
 
   <ul>
     <li>
-      <code>toHaveLengthOf</code> - Checks if the length passes to the function against the value it's invoked with.
+      <code>toHaveLengthOf</code> - Checks whether the length passes to the function against the value it's invoked with.
     </li>
   </ul>
 
@@ -303,7 +303,7 @@
 
   <ul>
     <li>
-      <code>toHaveText</code> - Checks if an element contains text.
+      <code>toHaveText</code> - Checks whether an element contains text.
     </li>
   </ul>
 
@@ -313,7 +313,7 @@
 
   <ul>
     <li>
-      <code>toMatchRegex</code> - Checks if an element's text fits a regex.
+      <code>toMatchRegex</code> - Checks whether an element's text fits a regex.
     </li>
   </ul>
 
@@ -323,7 +323,7 @@
 
   <ul>
     <li>
-      <code>toMatchMoney</code> - Checks if an element's text fits rtl money regex.
+      <code>toMatchMoney</code> - Checks whether an element's text fits rtl money regex.
     </li>
   </ul>
 
@@ -333,7 +333,7 @@
 
   <ul>
     <li>
-      <code>toMatchMoneyWithFraction</code> - Checks if an element's text fits rtl money regex with fraction.
+      <code>toMatchMoneyWithFraction</code> - Checks whether an element's text fits rtl money regex with fraction.
     </li>
   </ul>
 
@@ -343,7 +343,7 @@
 
   <ul>
     <li>
-      <code>toHaveValue</code> - Checks if an element's value attribute fits the <code>expectedValue</code>.
+      <code>toHaveValue</code> - Checks whether an element's value attribute fits the <code>expectedValue</code>.
     </li>
   </ul>
 
@@ -353,7 +353,7 @@
 
   <ul>
     <li>
-      <code>toHaveClass</code> - Checks if an element has a specific class name.
+      <code>toHaveClass</code> - Checks whether an element has a specific class name.
     </li>
   </ul>
 
@@ -363,7 +363,7 @@
 
   <ul>
     <li>
-      <code>toBeDisabled</code> - Checks if an element is disabled.
+      <code>toBeDisabled</code> - Checks whether an element is disabled.
     </li>
   </ul>
 
@@ -373,7 +373,7 @@
 
   <ul>
     <li>
-      <code>toBeChecked</code> - Checks if an element checkbox is checked.
+      <code>toBeChecked</code> - Checks whether an element checkbox is checked.
     </li>
   </ul>
 
@@ -383,7 +383,7 @@
 
   <ul>
     <li>
-      <code>toBeValid</code> - Checks if a form element is valid (using the <code>ng-valid</code> class name).
+      <code>toBeValid</code> - Checks whether a form element is valid (using the <code>ng-valid</code> class name).
     </li>
   </ul>
 
@@ -393,7 +393,7 @@
 
   <ul>
     <li>
-      <code>toBeInvalid</code> - Checks if a form element is invalid (using the <code>ng-invalid</code> class name).
+      <code>toBeInvalid</code> - Checks whether a form element is invalid (using the <code>ng-invalid</code> class name).
     </li>
   </ul>
 
@@ -403,7 +403,7 @@
 
   <ul>
     <li>
-      <code>toBeInvalidRequired</code> - Checks if a form element is invalid and required (using the
+      <code>toBeInvalidRequired</code> - Checks whether a form element is invalid and required (using the
       <code>ng-invalid-required</code> class name).
     </li>
   </ul>
@@ -414,7 +414,7 @@
 
   <ul>
     <li>
-      <code>toMatchTranslated</code> - Checks if an element contains a translation value.
+      <code>toMatchTranslated</code> - Checks whether an element contains a translation value.
     </li>
   </ul>
 
