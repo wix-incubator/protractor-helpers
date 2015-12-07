@@ -120,6 +120,10 @@ describe('Product Widget Suit', function () {
 			expect(page.repeaterElement.count()).toHaveLengthOf(4);
 		});
 
+		it('should compare by count', function() {
+			expect(page.repeaterElement).toHaveSizeOf(4);
+		});
+
 		it('Should check the element text.', function () {
 			expect(page.elementWithText).toHaveText('I am an important text');
 			expect(page.elementWithoutText).toHaveText('');
