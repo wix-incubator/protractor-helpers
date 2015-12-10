@@ -200,3 +200,9 @@ expect($('.some-element')).toBeInvalidRequired();
 ```js
 expect($('.some-element')).toMatchTranslated(key, values);
 ```
+
+## License
+
+The MIT License.
+
+See [LICENSE](https://github.com/wix/protractor-helpers/blob/master/LICENSE)
