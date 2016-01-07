@@ -24,6 +24,7 @@
     "_": false,
     "angular": false,
     "require": false,
+    "jasmine": false,
     "module": false,
     "console": false,
     "browser": false,

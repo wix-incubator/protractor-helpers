@@ -121,17 +121,16 @@ Helpers.prototype.isIE = function () {
 };
 
 // Descriptive error messages.
-Helpers.prototype.createMessage = function (context, message) {
-	context.message = function () {
-		var msg = message
-			.replace('{{actual}}', context.actual)
-			.replace('{{not}}', (context.isNot ? ' not ' : ' '));
-		
-		if (context.actual.locator) {
-			msg = msg.replace('{{locator}}', context.actual.locator());
-		}
-		return msg;
-	};
+Helpers.prototype.createMessage = function (actual, message, isNot) {
+	var msg = message
+		.replace('{{actual}}', actual)
+		.replace('{{not}}', (isNot ? ' not ' : ' '));
+
+	if (actual.locator) {
+		msg = msg.replace('{{locator}}', actual.locator());
+	}
+
+	return msg;
 };
 
 // Input clear & set values helpers
