@@ -6,7 +6,7 @@ This library extends Protractor API with a commonly used API. It helps write mor
 * Get Protractor Helpers via **[npm](https://www.npmjs.com/)** by running `$ npm install --save-dev protractor_helpers` from your console.
 * In your e2e tests, import the protractor-helpers module and start using it.
 ```js
-var helpers = require('protractor-helpers');
+var helpers = require('protractor_helpers');
 ```
 
 ## Usage
