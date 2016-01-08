@@ -3,10 +3,10 @@
 This library extends Protractor API with a commonly used API. It helps write more understandable and clean tests with a well-defined separation between the test logic and the app under the test logic. It consists of four extension types: elements, helpers, locators, and matchers.
 
 ## Get Started
-* Get Protractor Helpers via **[npm](https://www.npmjs.com/)** by running `$ npm install --save-dev protractor_helpers` from your console.
+* Get Protractor Helpers via **[npm](https://www.npmjs.com/)** by running `$ npm install --save-dev protractor-helpers` from your console.
 * In your e2e tests, import the protractor-helpers module and start using it.
 ```js
-var helpers = require('protractor_helpers');
+var helpers = require('protractor-helpers');
 ```
 
 ## Usage
