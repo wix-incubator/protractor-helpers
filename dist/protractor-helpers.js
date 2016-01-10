@@ -159,17 +159,16 @@ Helpers.prototype.isIE = function () {
 };
 
 // Descriptive error messages.
-Helpers.prototype.createMessage = function (context, message) {
-	context.message = function () {
-		var msg = message
-			.replace('{{actual}}', context.actual)
-			.replace('{{not}}', (context.isNot ? ' not ' : ' '));
-		
-		if (context.actual.locator) {
-			msg = msg.replace('{{locator}}', context.actual.locator());
-		}
-		return msg;
-	};
+Helpers.prototype.createMessage = function (actual, message, isNot) {
+	var msg = message
+		.replace('{{actual}}', actual)
+		.replace('{{not}}', (isNot ? ' not ' : ' '));
+
+	if (actual.locator) {
+		msg = msg.replace('{{locator}}', actual.locator());
+	}
+
+	return msg;
 };
 
 // Input clear & set values helpers
@@ -186,10 +185,31 @@ Helpers.prototype.hasClass = function (element, className) {
 	});
 };
 
-// ClassName helpers
+// get input value helpers
+Helpers.prototype.hasValue = function (element, expectedValue) {
+	return element.getAttribute('value').then(function (value) {
+		return value === expectedValue;
+	});
+};
+
+// link helpers
 Helpers.prototype.hasLink = function (element, url) {
 	return element.getAttribute('href').then(function (href) {
 		return href === url;
+	});
+};
+
+// is disabled helpers
+Helpers.prototype.isDisabled = function (element) {
+	return element.getAttribute('disabled').then(function (value) {
+		return value === 'true';
+	});
+};
+
+// is checked helpers
+Helpers.prototype.isChecked = function (element) {
+	return element.getAttribute('checked').then(function (value) {
+		return value;
 	});
 };
 
@@ -236,108 +256,209 @@ var MULTI_LOCATOR = 'dataHookAll';
 	var helpers = new Helpers();
 
 	beforeEach(function () {
-		this.addMatchers({
+		jasmine.addMatchers({
 			toBePresent: function () {
-				helpers.createMessage(this, 'Expected {{locator}}{{not}}to Be Present');
-				return this.actual.isPresent();
+				return {
+					compare: function (actual) {
+						var result = {};
+						result.pass = actual.isPresent().then(function (pass) {
+							result.message = helpers.createMessage(actual, 'Expected {{locator}}{{not}}to Be Present', pass);
+							return pass;
+						});
+						return result;
+					}
+				};
 			},
 			toBeDisplayed: function () {
-				helpers.createMessage(this, 'Expected {{locator}}{{not}}to Be Displayed');
-				return this.actual.isDisplayed();
+				return {
+					compare: function (actual) {
+						var result = {};
+						result.pass = actual.isDisplayed().then(function (pass) {
+							result.message = helpers.createMessage(actual, 'Expected {{locator}}{{not}}to Be Displayed', pass);
+							return pass;
+						});
+						return result;
+					}
+				};
 			},
-			toHaveLengthOf: function (expectedLength) {
-				if (!this.actual.length) {
-					helpers.createMessage(this, 'Please use object with "length" property, this will be deprecated in next major version. please use toHaveCountOf');
-				}
-				helpers.createMessage(this, 'Expected request{{not}}to have length of ' + expectedLength + ' but was {{actual}}');
-				return this.actual.length ? this.actual.length === expectedLength : this.actual === expectedLength;
+			toHaveCountOf: function () {
+				return {
+					compare: function (actual, expectedCount) {
+						var result = {};
+						result.pass = (function () {
+							result.message = helpers.createMessage(actual, 'Expected {{locator}}{{not}}to have length of ' + expectedCount + ' but was {{actual}}', actual === expectedCount);
+							return actual === expectedCount;
+						})();
+						return result;
+					}
+				};
 			},
-			toHaveCountOf: function (expectedCount) {
-				helpers.createMessage(this, 'Expected request{{not}}to have length of ' + expectedCount + ' but was {{actual}}');
-				return this.actual === expectedCount;
+			toHaveText: function () {
+				return {
+					compare: function (actual, expectedText) {
+						var result = {};
+						result.pass = actual.getText().then(function (text) {
+							result.message = helpers.createMessage(actual, 'Expected {{locator}}{{not}}to have text ' + expectedText + ' but was ' + text, (text === expectedText));
+							return text === expectedText;
+						});
+						return result;
+					}
+				};
 			},
-			toHaveText: function (expectedText) {
-				var _this = this;
-				return this.actual.getText().then(function (text) {
-					helpers.createMessage(_this, 'Expected {{locator}}{{not}}to have text ' + expectedText + ' but was ' + text);
-					return text === expectedText;
-				});
+			toMatchRegex: function () {
+				return {
+					compare: function (actual, expectedPattern) {
+						var re = new RegExp(expectedPattern);
+						var result = {};
+						result.pass = actual.getText().then(function (text) {
+							result.message = helpers.createMessage(actual, 'Expected {{locator}}with text ' + text + '{{not}}to match pattern ' + expectedPattern, re.test(text));
+							return re.test(text);
+						});
+						return result;
+					}
+				};
 			},
-			toMatchRegex: function (expectedPattern) {
-				var _this = this;
-				var re = new RegExp(expectedPattern);
-				return this.actual.getText().then(function (text) {
-					helpers.createMessage(_this, 'Expected {{locator}} with text ' + text + '{{not}}to match pattern ' + expectedPattern);
-					return re.test(text);
-				});
+			toMatchMoney: function () {
+				return {
+					compare: function (actual, expectedValue, currencySymbol) {
+						var regexExpectedValue = createMoneyRegexp(actual, expectedValue, currencySymbol);
+						var result = {};
+						result.pass = (function () {
+							result.message = helpers.createMessage(actual, 'Expected ' + actual + '{{not}}to match money pattern ' + regexExpectedValue, regexExpectedValue.test(actual));
+							return regexExpectedValue.test(actual);
+						})();
+						return result;
+					}
+				};
 			},
-			toMatchMoney: function (expectedValue, currencySymbol) {
-				var _this = this;
-				var regexExpectedValue = createMoneyRegexp(this.actual, expectedValue, currencySymbol);
-				helpers.createMessage(_this, 'Expected ' + this.actual + '{{not}}to match money pattern ' + regexExpectedValue);
-				return regexExpectedValue.test(this.actual);
+			toMatchMoneyWithFraction: function () {
+				return {
+					compare: function (actual, expectedValue, currencySymbol) {
+						var regexExpectedValue = createMoneyRegexp(actual, expectedValue, currencySymbol, true);
+						var result = {};
+						result.pass = (function () {
+							result.message = helpers.createMessage(actual, 'Expected ' + actual + '{{not}}to match money pattern ' + regexExpectedValue, regexExpectedValue.test(actual));
+							return regexExpectedValue.test(actual);
+						})();
+						return result;
+					}
+				};
 			},
-			toMatchMoneyWithFraction: function (expectedValue, currencySymbol) {
-				var _this = this;
-				var regexExpectedValue = createMoneyRegexp(this.actual, expectedValue, currencySymbol, true);
-				helpers.createMessage(_this, 'Expected ' + this.actual + '{{not}}to match money pattern ' + regexExpectedValue);
-				return regexExpectedValue.test(this.actual);
+			toHaveValue: function () {
+				return {
+					compare: function (actual, expectedValue) {
+						var result = {};
+						result.pass = helpers.hasValue(actual, expectedValue).then(function (pass) {
+							result.message = helpers.createMessage(actual, 'Expected {{locator}}{{not}}to have value ' + expectedValue, pass);
+							return pass;
+						});
+						return result;
+					}
+				};
 			},
-			toHaveValue: function (expectedValue) {
-				var _this = this;
-				return this.actual.getAttribute('value').then(function (value) {
-					helpers.createMessage(_this, 'Expected {{locator}}{{not}} to have value ' + expectedValue + ' but was ' + value);
-					return value === expectedValue;
-				});
+			toHaveClass: function () {
+				return {
+					compare: function (actual, className) {
+						var result = {};
+						result.pass = helpers.hasClass(actual, className).then(function (pass) {
+							result.message = helpers.createMessage(actual, 'Expected {{locator}}{{not}}to have class ' + className, pass);
+							return pass;
+						});
+						return result;
+					}
+				};
 			},
-			toHaveClass: function (className) {
-				var _this = this;
-				helpers.createMessage(_this, 'Expected {{locator}}{{not}}to have class ' + className);
-				return helpers.hasClass(this.actual, className);
-			},
-			toHaveUrl: function (url) {
-				var _this = this;
-				helpers.createMessage(_this, 'Expected {{locator}}{{not}}to have url ' + url);
-				return helpers.hasLink(this.actual, url);
+			toHaveUrl: function () {
+				return {
+					compare: function (actual, url) {
+						var result = {};
+						result.pass = helpers.hasLink(actual, url).then(function (pass) {
+							result.message = helpers.createMessage(actual, 'Expected {{locator}}{{not}}to have url ' + url, pass);
+							return pass;
+						});
+						return result;
+					}
+				};
 			},
 			toBeDisabled: function () {
-				helpers.createMessage(this, 'Expected {{locator}}{{not}} to be Disabled');
-				return this.actual.getAttribute('disabled').then(function (value) {
-					return value === 'true';
-				});
+				return {
+					compare: function (actual) {
+						var result = {};
+						result.pass = helpers.isDisabled(actual).then(function (pass) {
+							result.message = helpers.createMessage(actual, 'Expected {{locator}}{{not}}to be Disabled', pass);
+							return pass;
+						});
+						return result;
+					}
+				};
 			},
 			toBeChecked: function () {
-				helpers.createMessage(this, 'Expected {{locator}}{{not}} to be checked');
-				return this.actual.getAttribute('checked').then(function (value) {
-					return value;
-				});
+				return {
+					compare: function (actual) {
+						var result = {};
+						result.pass = helpers.isChecked(actual).then(function (pass) {
+							result.message = helpers.createMessage(actual, 'Expected {{locator}}{{not}}to be checked', pass);
+							return pass;
+						});
+						return result;
+					}
+				};
 			},
 			toBeValid: function () {
-				helpers.createMessage(this, 'Expected {{locator}}{{not}} to have valid input value');
-				return helpers.hasClass(this.actual, 'ng-valid');
+				return {
+					compare: function (actual) {
+						var result = {};
+						result.pass = helpers.hasClass(actual, 'ng-valid').then(function (pass) {
+							result.message = helpers.createMessage(actual, 'Expected {{locator}}{{not}} to have valid input value', pass);
+							return pass;
+						});
+						return result;
+					}
+				};
 			},
 			toBeInvalid: function () {
-				helpers.createMessage(this, 'Expected {{locator}}{{not}} to have invalid input value');
-				return helpers.hasClass(this.actual, 'ng-invalid');
+				return {
+					compare: function (actual) {
+						var result = {};
+						result.pass = helpers.hasClass(actual, 'ng-invalid').then(function (pass) {
+							result.message = helpers.createMessage(actual, 'Expected {{locator}}{{not}} to have invalid input value', pass);
+							return pass;
+						});
+						return result;
+					}
+				};
 			},
 			toBeInvalidRequired: function () {
-				helpers.createMessage(this, 'Expected {{locator}}{{not}} to be required and invalid (when empty)');
-				return helpers.hasClass(this.actual, 'ng-invalid-required');
+				return {
+					compare: function (actual) {
+						var result = {};
+						result.pass = helpers.hasClass(actual, 'ng-invalid-required').then(function (pass) {
+							result.message = helpers.createMessage(actual, 'Expected {{locator}}{{not}} to be required and invalid (when empty)', pass);
+							return pass;
+						});
+						return result;
+					}
+				};
 			},
-			toMatchTranslated: function (key, values) {
-				var _this = this;
-				return helpers.translate(key, values).then(function (translatedStr) {
-					helpers.createMessage(_this, 'Expected {{actual}}{{not}} to match ' + translatedStr + ' (translated from ' + key + ', values: ' + JSON.stringify(values) + ')');
-					var re = new RegExp(translatedStr);
-					return re.test(_this.actual);
-				});
+			toMatchTranslated: function () {
+				return {
+					compare: function (actual, key, values) {
+						var result = {};
+						result.pass = helpers.translate(key, values).then(function (translatedStr) {
+							var re = new RegExp(translatedStr);
+							result.message = helpers.createMessage(actual, 'Expected {{actual}}{{not}} ' + translatedStr + ' (translated from ' + key + ', values: ' + JSON.stringify(values) + ')', re.test(actual));
+							return re.test(actual);
+						});
+						return result;
+					}
+				};
 			}
 		});
 	});
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	//	Money Matcher Functions
-	////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//	Money Matcher Functions
+////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Gets a number and adds commas in the right place
 	 * @param number
@@ -354,7 +475,7 @@ var MULTI_LOCATOR = 'dataHookAll';
 	 * @param currencySymbol[optional] {string} - the symbol to match against.
 	 *                           if not specify - validate that there is no symbol.
 	 * @param isFraction[optional] {boolean} - flag to add the necessary postfix to expectedValue
-	 * @returns {RegExp}
+	 * @reurns {RegExp}
 	 */
 	var createMoneyRegexp = function (matchedValue, expectedValue, currencySymbol, isFraction) {
 		// get value with fraction

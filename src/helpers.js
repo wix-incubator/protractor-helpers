@@ -147,10 +147,31 @@ Helpers.prototype.hasClass = function (element, className) {
 	});
 };
 
-// ClassName helpers
+// get input value helpers
+Helpers.prototype.hasValue = function (element, expectedValue) {
+	return element.getAttribute('value').then(function (value) {
+		return value === expectedValue;
+	});
+};
+
+// link helpers
 Helpers.prototype.hasLink = function (element, url) {
 	return element.getAttribute('href').then(function (href) {
 		return href === url;
+	});
+};
+
+// is disabled helpers
+Helpers.prototype.isDisabled = function (element) {
+	return element.getAttribute('disabled').then(function (value) {
+		return value === 'true';
+	});
+};
+
+// is checked helpers
+Helpers.prototype.isChecked = function (element) {
+	return element.getAttribute('checked').then(function (value) {
+		return value;
 	});
 };
 
