@@ -98,10 +98,28 @@ describe('Product Widget Suit', function () {
 			});
 		});
 
+		it('Should return true if the element has the same value as the one passed.', function () {
+			expect(Helpers.hasValue(page.inputValue, 'original value')).toBeTruthy();
+			page.setInputValue(page.inputValue, 'new value');
+			expect(Helpers.hasValue(page.inputValue, 'new value')).toBeTruthy();
+		});
+
 		it('Should return true if the href of the element and the url match', function () {
 			expect(Helpers.hasLink(page.link, 'https://docs.angularjs.org/api')).toBeTruthy();
 			expect(Helpers.hasLink(page.link, 'https://docs.angularjs.org/')).not.toBeTruthy();
 		});
+
+		it('Should return true if the element is disabled.', function () {
+			expect(Helpers.isDisabled(page.disabledInput)).toBeTruthy();
+			expect(Helpers.isDisabled(page.activatedInput)).toBeFalsy();
+		});
+
+		it('Should return true if the element is checked.', function () {
+			expect(Helpers.isChecked(page.checkbox)).toBeFalsy();
+			page.checkbox.click();
+			expect(Helpers.isChecked(page.checkbox)).toBeTruthy();
+		});
+
 	});
 
 	describe('Matchers Tests - ', function () {
@@ -114,14 +132,6 @@ describe('Product Widget Suit', function () {
 		it('Should check if the element is displayed (exists in dom and visible).', function () {
 			expect(page.visibleElement).toBeDisplayed();
 			expect(page.hiddenElement).not.toBeDisplayed();
-		});
-
-		it('Should return length of an object.', function () {
-			expect([1, 2, 3, 4]).toHaveLengthOf(4);
-		});
-
-		it('Should return length without element "length".', function () {
-			expect(5).toHaveLengthOf(5);
 		});
 
 		it('Should return the count of an object.', function () {

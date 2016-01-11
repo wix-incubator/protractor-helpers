@@ -11,13 +11,11 @@ config.allScriptsTimeout = 120000;
 config.baseUrl = 'http://localhost:9876/';
 
 config.specs = [
-	process.cwd() + '/test/spec/e2e/**/*.js',
-	process.cwd() + '/test/e2e/spec/**/*.js'
+	process.cwd() + '/test/spec/e2e/**/*.js'
 ];
 
 config.exclude = [
-  process.cwd() + '/test/spec/e2e/pageObjects/*.js',
-  process.cwd() + '/test/e2e/spec/pageObjects/*.js'
+  process.cwd() + '/test/spec/e2e/pageObjects/*.js'
 ];
 
 config.framework = 'jasmine';
