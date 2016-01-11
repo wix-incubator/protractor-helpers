@@ -1,6 +1,6 @@
 {
   "name": "protractor-helpers",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Additional matchers / locators and helpers for system tests using protractor and Jasmine",
   "main": "dist/protractor-helpers.js",
   "keywords": [
