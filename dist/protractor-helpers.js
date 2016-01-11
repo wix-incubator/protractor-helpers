@@ -456,9 +456,9 @@ var MULTI_LOCATOR = 'dataHookAll';
 		});
 	});
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//	Money Matcher Functions
-////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	//	Money Matcher Functions
+	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Gets a number and adds commas in the right place
 	 * @param number
@@ -475,7 +475,7 @@ var MULTI_LOCATOR = 'dataHookAll';
 	 * @param currencySymbol[optional] {string} - the symbol to match against.
 	 *                           if not specify - validate that there is no symbol.
 	 * @param isFraction[optional] {boolean} - flag to add the necessary postfix to expectedValue
-	 * @reurns {RegExp}
+	 * @returns {RegExp}
 	 */
 	var createMoneyRegexp = function (matchedValue, expectedValue, currencySymbol, isFraction) {
 		// get value with fraction
