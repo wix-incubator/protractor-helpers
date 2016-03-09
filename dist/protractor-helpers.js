@@ -92,7 +92,7 @@ Helpers.prototype.moveToElement = function (dataHook) {
 // Hover helpers
 Helpers.prototype.displayHover = function (element) {
 	browser.actions().mouseMove(element).perform();
-	return browser.wait(function () {
+	browser.wait(function () {
 		return element.isDisplayed();
 	});
 };
