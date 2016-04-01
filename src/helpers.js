@@ -6,7 +6,7 @@ var DEFAULT_HEIGHT = 1024;
 
 function Helpers() {
 	browser.getCapabilities().then(function (cap) {
-		this.browserName = cap.caps_.browserName;
+		this.browserName = cap.browserName;
 	}.bind(this));
 }
 
