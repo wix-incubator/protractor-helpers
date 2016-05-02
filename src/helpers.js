@@ -5,8 +5,8 @@ var DEFAULT_WIDTH = 1280;
 var DEFAULT_HEIGHT = 1024;
 
 function Helpers() {
-	browser.getCapabilities().then(function (cap) {
-		this.browserName = cap.caps_.browserName;
+	browser.driver.getCapabilities().then(function (cap) {
+		this.browserName = cap.browserName;
 	}.bind(this));
 }
 
