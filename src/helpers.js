@@ -61,7 +61,7 @@ Helpers.prototype.displayHover = function (element) {
 
 // Calling isDisplayed when element is not present causes an exception.
 Helpers.prototype.waitForElement = function (element, timeout) {
-	browser.wait(function () {
+	return browser.wait(function () {
 		return element.isPresent().then(function (isPresent) {
 			if (isPresent) {
 				return element.isDisplayed();
@@ -76,7 +76,7 @@ Helpers.prototype.waitForElement = function (element, timeout) {
 // Calling isDisplayed when element is not present causes an exception.
 Helpers.prototype.waitForElementToDisappear = function (element, timeout) {
 	var _this = this;
-	browser.wait(function () {
+	return browser.wait(function () {
 		return element.isPresent().then(function (isPresent) {
 			if (isPresent) {
 				return _this.not(element.isDisplayed());
