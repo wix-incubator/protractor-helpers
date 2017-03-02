@@ -5,15 +5,15 @@ var ElementFinder = $('').constructor;
 
 ElementArrayFinder.prototype.getByText = function (compareText) {
     return this.filter(function (element) {
-        element.getWebElement.getText().then(function (elementText) {
-            return elementText === compareText;
+        element.getWebElement().getText().then(function (elementText) {
+            return elementText.trim() === compareText;
         })
     });
 };
 
 ElementArrayFinder.prototype.getByAttribute = function (attribute, value) {
     return this.filter(function (element) {
-        element.getWebElement.getAttribute(attribute).then(function (elementAttribute) {
+        element.getWebElement().getAttribute(attribute).then(function (elementAttribute) {
             return elementAttribute === value;
         })
     });
