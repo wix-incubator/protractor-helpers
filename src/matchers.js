@@ -3,6 +3,46 @@
 (function () {
 	var helpers = new Helpers();
 
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	//	Money Matcher Functions
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Gets a number and adds commas in the right place
+	 * @param number
+	 * @returns {string}
+	 */
+	var getNumberWithCommas = function (number) {
+		return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	};
+
+	/**
+	 * Creates a regular expression to match money representation with or without spaces in between
+	 * @param matchedValue - the number that is tested
+	 * @param expectedValue - the number to match against
+	 * @param currencySymbol[optional] {string} - the symbol to match against.
+	 *                           if not specify - validate that there is no symbol.
+	 * @param isFraction[optional] {boolean} - flag to add the necessary postfix to expectedValue
+	 * @returns {RegExp}
+	 */
+	var createMoneyRegexp = function (matchedValue, expectedValue, currencySymbol, isFraction) {
+		// get value with fraction
+		expectedValue = getNumberWithCommas(expectedValue);
+		if (isFraction === true && expectedValue.indexOf('.') === -1) {
+			expectedValue += '.00';
+		}
+
+		// add minus and symbol if needed
+		var expression = '^';
+		if (matchedValue.indexOf('-') !== -1) {
+			expression += '-';
+		}
+		expression += '\\s*';
+		if (typeof currencySymbol === 'string') {
+			expression += '\\' + currencySymbol + '\\s*';
+		}
+		return new RegExp(expression + expectedValue + '$');
+	};
+
 	beforeEach(function () {
 		jasmine.addMatchers({
 			toBePresent: function () {
@@ -203,44 +243,4 @@
 			}
 		});
 	});
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	//	Money Matcher Functions
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Gets a number and adds commas in the right place
-	 * @param number
-	 * @returns {string}
-	 */
-	var getNumberWithCommas = function (number) {
-		return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-	};
-
-	/**
-	 * Creates a regular expression to match money representation with or without spaces in between
-	 * @param matchedValue - the number that is tested
-	 * @param expectedValue - the number to match against
-	 * @param currencySymbol[optional] {string} - the symbol to match against.
-	 *                           if not specify - validate that there is no symbol.
-	 * @param isFraction[optional] {boolean} - flag to add the necessary postfix to expectedValue
-	 * @returns {RegExp}
-	 */
-	var createMoneyRegexp = function (matchedValue, expectedValue, currencySymbol, isFraction) {
-		// get value with fraction
-		expectedValue = getNumberWithCommas(expectedValue);
-		if (isFraction === true && expectedValue.indexOf('.') === -1) {
-			expectedValue += '.00';
-		}
-
-		// add minus and symbol if needed
-		var expression = '^';
-		if (matchedValue.indexOf('-') !== -1) {
-			expression += '-';
-		}
-		expression += '\\s*';
-		if (typeof currencySymbol === 'string') {
-			expression += '\\' + currencySymbol + '\\s*';
-		}
-		return new RegExp(expression + expectedValue + '$');
-	};
 })();
