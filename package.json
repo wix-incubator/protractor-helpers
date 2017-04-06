@@ -23,7 +23,7 @@
   "dependencies": {
     "angular": "^1.4.7",
     "glob": "^5.0.15",
-    "grunt-protractor-runner": "^3.0.0"
+    "grunt-protractor-runner": "^4.0.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
