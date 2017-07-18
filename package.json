@@ -15,6 +15,7 @@
     "registry": "http://repo.dev.wix/artifactory/api/npm/npm-local/"
   },
   "scripts": {
+    "install": "webdriver-manager update",
     "start": "grunt serve",
     "build": "grunt build",
     "test": ":",
