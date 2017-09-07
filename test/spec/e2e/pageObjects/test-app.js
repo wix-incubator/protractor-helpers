@@ -40,6 +40,8 @@ function TestPage() {
   this.formName = $data('form-name');
   this.email = $data('email');
   this.link = $data('link');
+  this.buttonAtBottom = $data('button-at-bottom');
+  this.buttonAtBottomHint = $data('button-at-bottom-hint');
 
   this.setInputValue = function (element, value) {
     Helpers.clearAndSetValue(element, value);

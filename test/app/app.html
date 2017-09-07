@@ -76,6 +76,12 @@
 			<a data-hook="link" href="https://docs.angularjs.org/api"></a>
 		</section>
 
+		<section>
+			<p>Scroll To clickable element</p>
+			<button data-hook="button-at-bottom" type="button" ng-click="buttonAtBottomClicked = true">Click Me</button>
+			<span data-hook="button-at-bottom-hint" ng-if="buttonAtBottomClicked === true">I am visible!!!</span>
+		</section>
+
 		<script src="angular/angular.min.js"></script>
 		<script src="scripts/app.js"></script>
 	</body>

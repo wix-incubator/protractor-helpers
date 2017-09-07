@@ -196,5 +196,13 @@ describe('Product Widget Suit', function () {
 		it('Should match the element href to the value on test', function () {
 			expect(page.link).toHaveUrl('https://docs.angularjs.org/api');
 		});
+
+    it('Should allow clicking elements which are not visible (Chrome 60+ issue)', function () {
+      Helpers.maximizeWindow(100, 100); //small window
+
+      Helpers.clickElementWithScroll(page.buttonAtBottom);
+
+      expect(page.buttonAtBottomHint).toBePresent();
+    });
 	});
 });

@@ -132,6 +132,11 @@ Helpers.prototype.selectOptionByText = function (select, text) {
 	this.selectOption(optionElement);
 };
 
+Helpers.prototype.selectOptionByText = function (select, text) {
+  var optionElement = select.element(by.cssContainingText('option', text));
+  this.selectOption(optionElement);
+};
+
 // Select element helper (filter by index)
 Helpers.prototype.selectOptionByIndex = function (select, index) {
 	var optionElement = select.all(by.css('option')).get(index);
@@ -146,6 +151,18 @@ Helpers.prototype.selectOption = function (optionElement) {
 	else {
 		optionElement.click();
 	}
+};
+
+Helpers.prototype.scrollToElement = function (element) {
+  return element.getLocation().then(function (location) {
+    return browser.executeScript('window.scrollTo(0, ' + location.y + ');');
+  });
+};
+
+Helpers.prototype.clickElementWithScroll = function (element) {
+  return this.scrollToElement(element).then(function () {
+    return element.click();
+  });
 };
 
 // Firefox detection helpers
