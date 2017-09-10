@@ -155,7 +155,7 @@ Helpers.prototype.selectOption = function (optionElement) {
 
 Helpers.prototype.scrollToElement = function (element) {
   return element.getLocation().then(function (location) {
-    return browser.executeScript('window.scrollTo(0, ' + location.y + ');');
+    return browser.executeScript('window.scrollTo(' + location.x + ', ' + location.y + ');');
   });
 };
 
