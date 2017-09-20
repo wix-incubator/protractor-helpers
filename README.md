@@ -52,12 +52,12 @@ helpers.displayHover($('.some-element'));
 
 * `waitForElement` - Waits for an element to be shown.
 ```js
-helpers.waitForElement($('.some-element'), timeout);
+helpers.waitForElement($('.some-element'), timeout, opt_message);
 ```
 
 * `waitForElementToDisappear` - Waits for an element not to be shown.
 ```js
-helpers.waitForElementToDisappear($('.some-element'), timeout);
+helpers.waitForElementToDisappear($('.some-element'), timeout, opt_message);
 ```
 
 * `selectOptionByText` - Selects an element from a selection box.
