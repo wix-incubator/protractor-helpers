@@ -59,6 +59,7 @@ Helpers.prototype.not = function (promise) {
 Helpers.prototype.translate = function (key, values) {
 	return browser.executeScript(function (key, values) {
 		var $translate = angular.element(document.body).injector().get('$translate');
+		$translate = $translate.instant || $translate;
 		return $translate(key, values);
 	}, key, values);
 };
