@@ -1,6 +1,6 @@
 {
   "name": "protractor-helpers",
-  "version": "1.1.1",
+  "version": "1.1.440",
   "description": "Additional matchers / locators and helpers for system tests using protractor and Jasmine",
   "main": "dist/protractor-helpers.js",
   "keywords": [
@@ -12,7 +12,7 @@
     "e2e"
   ],
   "publishConfig": {
-    "registry": "http://repo.dev.wix/artifactory/api/npm/npm-local/"
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "install": "webdriver-manager update --standalone --versions.chrome 2.28 --gecko false",
