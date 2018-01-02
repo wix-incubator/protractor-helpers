@@ -19,7 +19,7 @@
     "start": "grunt serve",
     "build": "grunt build",
     "test": ":",
-    "release": "wnpm-release"
+    "release": "wnpm-release --no-shrinkwrap"
   },
   "dependencies": {
     "angular": "^1.4.7",
