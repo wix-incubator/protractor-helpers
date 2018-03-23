@@ -20,7 +20,7 @@ $$('.calendar').getByText('27').click();
 ```
 
 ### Helpers
-* `not` - Returns the negative value of a Promise. 
+* `not` - Returns the negative value of a Promise.
 ```js
 helpers.not($('.some-element').isDisplayed());
 ```
@@ -52,12 +52,12 @@ helpers.displayHover($('.some-element'));
 
 * `waitForElement` - Waits for an element to be shown.
 ```js
-helpers.waitForElement($('.some-element'), timeout, opt_message);
+helpers.waitForElement($('.some-element'), timeout, optionalMessage);
 ```
 
 * `waitForElementToDisappear` - Waits for an element not to be shown.
 ```js
-helpers.waitForElementToDisappear($('.some-element'), timeout, opt_message);
+helpers.waitForElementToDisappear($('.some-element'), timeout, optionalMessage);
 ```
 
 * `selectOptionByText` - Selects an element from a selection box.

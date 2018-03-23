@@ -61,7 +61,7 @@ Helpers.prototype.displayHover = function (element) {
 };
 
 // Calling isDisplayed when element is not present causes an exception.
-Helpers.prototype.waitForElement = function (element, timeout, opt_message) {
+Helpers.prototype.waitForElement = function (element, timeout, optionalMessage) {
 	return browser.wait(function () {
 		return element.isPresent().then(function (isPresent) {
 			if (isPresent) {
@@ -71,11 +71,11 @@ Helpers.prototype.waitForElement = function (element, timeout, opt_message) {
 				return false;
 			}
 		});
-	}, timeout || TIMEOUT, opt_message);
+	}, timeout || TIMEOUT, optionalMessage);
 };
 
 // Calling isDisplayed when element is not present causes an exception.
-Helpers.prototype.waitForElementToDisappear = function (element, timeout, opt_message) {
+Helpers.prototype.waitForElementToDisappear = function (element, timeout, optionalMessage) {
 	var _this = this;
 	return browser.wait(function () {
 		return element.isPresent().then(function (isPresent) {
@@ -86,7 +86,7 @@ Helpers.prototype.waitForElementToDisappear = function (element, timeout, opt_me
 				return true;
 			}
 		});
-	}, timeout || TIMEOUT, opt_message);
+	}, timeout || TIMEOUT, optionalMessage);
 };
 
 // Select element helper (filter by text)
