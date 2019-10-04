@@ -4,16 +4,19 @@ var ElementArrayFinder = $$('').constructor;
 var ElementFinder = $('').constructor;
 
 ElementArrayFinder.prototype.getByText = function (compareText) {
-    var foundElement;
-    return this.each(function (element) {
-        element.getWebElement().getText().then(function (elementText) {
-            if (elementText.trim() === compareText) {
-                foundElement = element;
-            }
-        });
-    }).then(function () {
-        return foundElement;
-    });
+    return this.filter(function (element) {
+        return element.getWebElement().getText().then(function (elementText) {
+            return elementText.trim() === compareText;
+        })
+    }).first();
+};
+
+ElementArrayFinder.prototype.getByAttribute = function (attribute, value) {
+    return this.filter(function (element) {
+        return element.getWebElement().getAttribute(attribute).then(function (elementAttribute) {
+            return elementAttribute === value;
+        })
+    }).first();
 };
 
 ElementArrayFinder.prototype.$$data = ElementFinder.prototype.$$data = function (hook) {
